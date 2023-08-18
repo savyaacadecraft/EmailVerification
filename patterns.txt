@@ -1,0 +1,16 @@
+firstnamelastname
+lastname.firstname
+firstinitiallastname
+firstnamelastinitial
+firstname.lastname
+firstinitiallastinitial
+lastinitialfirstinitial
+lastname
+lastnamefirstname
+firstname
+lastinitialfirstname
+firstname.lastinitial
+firstinitial.lastname
+firstname-lastname
+lastname.firstname
+lastinitial.firstname
