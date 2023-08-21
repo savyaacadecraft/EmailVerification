@@ -1,6 +1,7 @@
 
 from pymongo import MongoClient
 from urllib.parse import quote_plus
+from datetime import datetime, timedelta
 
 
 username = "manojtomar326"
@@ -21,34 +22,36 @@ client = MongoClient(connection_string)
 db = client['mydatabase']
 collection = db['my_collection']
 
+# myTime = "2023-06-03T15:51:47.005"
 
-#  Compny = collection.find_one({"status":"Checked"})
-#             print("Comapany --> ",Compny["Company"])
-#             print("TotalProfiles -> ", Compny["totalProfiles"])
+# Compny = collection.find_one({"Company": "Bauer Media"})
+# comp = Compny["Company"]
+# for employee in Compny["data_dict"]:
+#     if employee["Verification"] == "Not Found":
+#         id = employee["id"]
+#         collection.update_one({"Company": comp, "data_dict" :{"$elemMatch" : {"id": id}} }, {'$set': {"data_dict.$.Verification": "pending" }})
 
 
-data = collection.find(
-            {"data_dict.Verification": {"$in": [False, "pending"]}},
-            {"Company": 1,"Domain": 1, "data_dict": 1}
-        )
 
-for company in data:
-    print(company["Company"])
-    for employee in company["data_dict"]:
-        if employee["Verification"] in [False, "pending"]:
-            print(employee["first"])
-            print(employee["last"])
-            print(employee["id"])
-            print(employee["email"])
+# Compny = collection.find_one({"Company": "Bauer Media"})
 
-            
-        break
-    break
-100/0
+# for employee in Compny["data_dict"]:
+#     if employee['id'] == 1:
+#         print(employee["id"])
+#         print(employee["first"], employee["last"])
+#         print(employee["Verification"])
+#         print(employee["timestamp"])
+#         print(employee["Checked24"])
+#         break
 
-# barrett.sheridan@nytimes.com
+str_date = "2023-06-16T18:20:53.118"
+collection.update_one({"Company": "N3TWORK", "data_dict" :{"$elemMatch" : {"id": 4}} }, 
+                      {'$set': 
+                         {
+                            "data_dict.$.Checked24": datetime.now() - timedelta(days=1, hours=6)
+                          }
+                        })
 
-collection.update_one({"Company": company["Company"], "data_dict" :{"$elemMatch" : {"id": employee["id"]}}}, 
-                                  {'$set': {"data_dict.$.email": "barrett.sheridan@nytimes.com"}})
+
 
 

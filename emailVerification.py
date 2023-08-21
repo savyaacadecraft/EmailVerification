@@ -1,17 +1,15 @@
 # # If i have 1000 Emails then i have to check first 10 each with 16 pattern until i get the True Point else pass
 # #
 
-from validate_email_priyam import verifying2, PatternCheck
-import json
+from validate_email_priyam import PatternCheck
 from pymongo import MongoClient
 from urllib.parse import quote_plus
-from pymongo import UpdateOne
-import io
-import csv
-from datetime import datetime, timedelta
-from itertools import islice
-import re,ast
+import ast
 from os.path import exists
+from datetime import datetime, timedelta
+
+
+DAILY_LIMIT = 500
 
 username = "manojtomar326"
 password = "Tomar@@##123"
@@ -64,8 +62,7 @@ def patternCatcher(Company):
 
 def CompanyEmailPatrn(Company):
     try:
-        # idnum = 14, 15, 16 were exhausted
-        idnum = 14
+        idnum = 23
         
 
         try:
@@ -79,13 +76,13 @@ def CompanyEmailPatrn(Company):
         for i in data["data_dict"]:
 
             # i['Verification'] in (False, "pending")
+            domain = data['Domain']
 
             if i['Verification'] == "pending":
                 print("Checking:",i["id"])
                 id = i['id']
                 fname = i['first']
                 lname = i['last']
-                domain = data['Domain']
 
                 fullName = f'{fname} {lname}'.replace(".","").replace(",","").replace("(","").replace(")","")
                 print(fullName)
@@ -95,7 +92,7 @@ def CompanyEmailPatrn(Company):
                     try:
                         
                         print(f"Email[{id}] ==", fullName,'\n-------------------------')
-                        ptrn, EMail = PatternCheck(fullName, domain, idnum)
+                        ptrn, EMail, counter = PatternCheck(fullName, domain, idnum)
                         break
 
                     except Exception as E:
@@ -103,6 +100,9 @@ def CompanyEmailPatrn(Company):
                         print(f"ID Value is :::: {idnum}")
                         idnum += 1
 
+                if counter > DAILY_LIMIT:
+                    print(f"******** Daily Limit Reached for ID: {idnum} ********")
+                    idnum += 1
 
                 if EMail:
                     collection.update_one({
@@ -111,14 +111,19 @@ def CompanyEmailPatrn(Company):
                         }, 
                         {'$set': 
                          {
-                             "data_dict.$.email": EMail,
-                             "data_dict.$.Verification": True
+                            "data_dict.$.email": EMail,
+                            "data_dict.$.Verification": True,
+                            "data_dict.$.Checked24": datetime.now()
                           
                           }})
+                    
                 else:
                     collection.update_one(
                         {"Company": Company, "data_dict" :{"$elemMatch" : {"id": id}}}, 
-                        {'$set': {"data_dict.$.Verification": "Not Found"}}
+                        {'$set': {
+                            "data_dict.$.Verification": "Not Found",
+                            "data_dict.$.Checked24": datetime.now()
+                            }}
                         )
 
                 print(f'Email Found[{id}] ~ {EMail}\n--------------------------')
@@ -165,6 +170,8 @@ if __name__ == "__main__":
     companies = collection.find({"data_dict.Verification": "pending"}, {"Company":1})
     
     for company in companies:
+        if company["Company"] == "Bauer Media": continue
+
         print("################################################################################")
 
         print("Company Name :::: ", company["Company"])
