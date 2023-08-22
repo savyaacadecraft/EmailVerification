@@ -121,12 +121,12 @@ def receive(recipient_email, count, id_num):
     except HttpError as error:
         print('An error occurred: %s' % error)
 
-def getVars(line):
+def getVars(i):
     l = list()
     with open("patterns.txt", "r") as file:
         for line in file:
             l.append(line.split("\n")[0])
-    return l[line]
+    return l[i]
 
 def PatternCheck(name, domain, idnum):
 
