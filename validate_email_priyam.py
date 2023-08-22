@@ -122,8 +122,11 @@ def receive(recipient_email, count, id_num):
         print('An error occurred: %s' % error)
 
 def getVars(line):
-    with open('patterns.txt', 'r') as f:
-        return f.readlines()[line].removesuffix('\n')
+    l = list()
+    with open("patterns.txt", "r") as file:
+        for line in file:
+            l.append(line.split("\n")[0])
+    return l[line]
 
 def PatternCheck(name, domain, idnum):
 
