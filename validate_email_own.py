@@ -41,7 +41,9 @@ def verifying2(recipient_email, id_num):
 
     except HttpError as error:
         send_message = None
+        print("---", error)
         return False
+    
     
     sleep(0.1)
     knkt = receive(recipient_email, 11, id_num)
@@ -135,17 +137,20 @@ def PatternCheck(full_name, domain,_idnum):
     if "//" in domain:
         domain = f'{".".join(" ".join(domain.split("//")[1:]).replace("/","").replace("www.","").split(".")[0:2])}'
     else:
-        domain = f'{domain.replace("www.","")}'
+        domain = f'{domain.replace("www.","").replace("-", "").replace("/", "")}'
+    
+    print(domain)
 
     for i in range(16):
         try:
             ptrn = getVars(i).replace('firstname', name).replace('lastname', last).replace('firstinitial', name[0]).replace('lastinitial', last[0]).lower()
             email = f'{ptrn}@{domain}'
 
+            print(email)
             if _idnum not in ID_COUNTER.keys(): ID_COUNTER[_idnum] = 1
             else: ID_COUNTER[_idnum] += 1
 
-            if verifying2(email,_idnum) == True:
+            if verifying2(email,_idnum):
                 return (getVars(i), email, ID_COUNTER[_idnum])
         except Exception as e:
             print('[validate email ({})] :::: '.format(sys.exc_info()[-1].tb_lineno), type(e).__name__, e)
@@ -158,4 +163,5 @@ def PatternCheck(full_name, domain,_idnum):
 if __name__ == "__main__":
     # if verifying2('priyamtomar133@gmail.com',24) == True:
     #     print('YES')
-    PatternCheck("savya sachi","acadecraft.net",17)
+    # PatternCheck("savya sachi","acadecraft.net/",17)
+    PatternCheck("Miguel Alonso", "webedia-group.com/", 17)

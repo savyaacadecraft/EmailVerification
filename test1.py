@@ -33,24 +33,25 @@ collection = db['my_collection']
 
 
 
-# Compny = collection.find_one({"Company": "Bauer Media"})
+Company = collection.find_one({"Company": "Webedia"})
 
-# for employee in Compny["data_dict"]:
-#     if employee['id'] == 1:
-#         print(employee["id"])
-#         print(employee["first"], employee["last"])
-#         print(employee["Verification"])
-#         print(employee["timestamp"])
-#         print(employee["Checked24"])
-#         break
-
-str_date = "2023-06-16T18:20:53.118"
-collection.update_one({"Company": "N3TWORK", "data_dict" :{"$elemMatch" : {"id": 4}} }, 
+for employee in Company["data_dict"]:
+    if employee['Verification'] == "Not Found":   
+        print(employee["id"])     
+        collection.update_one({"Company": "webedia", "data_dict" :{"$elemMatch" : {"id": employee["id"]}} }, 
                       {'$set': 
                          {
-                            "data_dict.$.Checked24": datetime.now() - timedelta(days=1, hours=6)
+                            "data_dict.$.Verification": "pending"
                           }
                         })
+
+# str_date = "2023-06-16T18:20:53.118"
+# collection.update_one({"Company": "N3TWORK", "data_dict" :{"$elemMatch" : {"id": 4}} }, 
+#                       {'$set': 
+#                          {
+#                             "data_dict.$.Checked24": datetime.now() - timedelta(days=1, hours=6)
+#                           }
+#                         })
 
 
 

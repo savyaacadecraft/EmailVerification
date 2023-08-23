@@ -62,7 +62,7 @@ def patternCatcher(Company):
 
 def CompanyEmailPatrn(Company):
     try:
-        idnum = 23
+        idnum = 17
         
 
         try:
