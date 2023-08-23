@@ -1,7 +1,7 @@
 # # If i have 1000 Emails then i have to check first 10 each with 16 pattern until i get the True Point else pass
 # #
 
-from validate_email_priyam import PatternCheck
+from validate_email_own import PatternCheck
 from pymongo import MongoClient
 from urllib.parse import quote_plus
 import ast
