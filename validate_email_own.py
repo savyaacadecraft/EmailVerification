@@ -130,14 +130,13 @@ def getVars(index):
 def PatternCheck(full_name, domain,_idnum):
     global ID_COUNTER
 
-
     name = full_name.split(" ")[0]
     last = full_name.split(" ")[1]
 
     if "//" in domain:
-        domain = f'{".".join(" ".join(domain.split("//")[1:]).replace("/","").replace("www.","").split(".")[0:2])}'
+        domain = ".".join(" ".join(domain.split("//")[1:]).replace("/","").replace("www.","").replace("-", "").split(".")[0:2])
     else:
-        domain = f'{domain.replace("www.","").replace("-", "").replace("/", "")}'
+        domain = domain.replace("www.","").replace("-", "").replace("/", "")
     
     print(domain)
 
@@ -151,11 +150,13 @@ def PatternCheck(full_name, domain,_idnum):
             else: ID_COUNTER[_idnum] += 1
 
             if verifying2(email,_idnum):
+                print(ID_COUNTER, file=open("credentials_log.txt", "w"))
                 return (getVars(i), email, ID_COUNTER[_idnum])
         except Exception as e:
             print('[validate email ({})] :::: '.format(sys.exc_info()[-1].tb_lineno), type(e).__name__, e)
             raise Exception("Refresh problem")
-        
+    
+    print(ID_COUNTER, file=open("credentials_log.txt", "w"))
     return (None, None, ID_COUNTER[_idnum])
 
 

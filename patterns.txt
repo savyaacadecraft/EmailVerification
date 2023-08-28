@@ -1,10 +1,10 @@
-firstname
-firstname.lastname
-lastname.firstname
-firstinitiallastinitial
 firstinitiallastname
-lastnamefirstname
+firstinitiallastinitial
 lastinitialfirstinitial
+lastname.firstname
+firstname.lastname
+firstname
+lastnamefirstname
 lastinitialfirstname
 lastname
 firstnamelastname

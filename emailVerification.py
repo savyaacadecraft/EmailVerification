@@ -5,6 +5,7 @@ from validate_email_own import PatternCheck
 from pymongo import MongoClient
 from urllib.parse import quote_plus
 import ast
+from sys import exit
 from os.path import exists
 from datetime import datetime, timedelta
 
@@ -60,9 +61,9 @@ def patternCatcher(Company):
         return dict()
         
 
-def CompanyEmailPatrn(Company):
+def CompanyEmailPatrn(Company, start_id):
     try:
-        idnum = 17
+        idnum = start_id
         
 
         try:
@@ -118,13 +119,22 @@ def CompanyEmailPatrn(Company):
                           }})
                     
                 else:
+                    # collection.update_one(
+                    #     {"Company": Company, "data_dict" :{"$elemMatch" : {"id": id}}}, 
+                    #     {'$set': {
+                    #         "data_dict.$.Verification": "Not Found",
+                    #         "data_dict.$.Checked24": datetime.now()
+                    #         }}
+                    #     )
+
                     collection.update_one(
                         {"Company": Company, "data_dict" :{"$elemMatch" : {"id": id}}}, 
                         {'$set': {
-                            "data_dict.$.Verification": "Not Found",
-                            "data_dict.$.Checked24": datetime.now()
+                            "data_dict.$.Verification": "pending"
                             }}
                         )
+                    return False
+
 
                 print(f'Email Found[{id}] ~ {EMail}\n--------------------------')
                 
@@ -143,6 +153,7 @@ def CompanyEmailPatrn(Company):
 
         item_with_highest_value = max(patternSuc, key=lambda x: patternSuc[x])
         print("Item with highest value:", item_with_highest_value)
+
     except Exception as e:
         print(e)
 
@@ -167,16 +178,21 @@ def CompanyEmailPatrn(Company):
 
 if __name__ == "__main__":
 
+    tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
+    print(tomorrow)
+
     companies = collection.find({"data_dict.Verification": "pending"}, {"Company":1})
     
     for company in companies:
-        if company["Company"] == "Bauer Media": continue
+
+        if tomorrow == datetime.now().strftime("%Y-%m-%d"):
+            exit("Next Day Has Started ........")
 
         print("################################################################################")
 
         print("Company Name :::: ", company["Company"])
         try:
-            CompanyEmailPatrn(company["Company"])
+            CompanyEmailPatrn(company["Company"], 15)
             
         except Exception as E:
             print(E)
