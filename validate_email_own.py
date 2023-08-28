@@ -12,6 +12,9 @@ import time
 
 ID_COUNTER = dict()
 
+def printf(*args):
+    print(*args, file=open("All_Print_Logs.txt", "a"))
+
 def verifying2(recipient_email, id_num):
     to = recipient_email
     subject = "Test email"
@@ -41,7 +44,7 @@ def verifying2(recipient_email, id_num):
 
     except HttpError as error:
         send_message = None
-        print("---", error)
+        printf("---", error)
         return False
     
     
@@ -56,7 +59,7 @@ def receive(recipient_email, count, id_num):
         current_time = time.time()
         # Convert the current time to a human-readable format
         formatted_time = time.strftime('%H:%M:%S', time.localtime(current_time))
-        print(f"{recipient_email}: EXIST {formatted_time}\n")
+        printf(f"{recipient_email}: EXIST {formatted_time}\n")
         return True
     
     SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
@@ -104,20 +107,20 @@ def receive(recipient_email, count, id_num):
             if content.splitlines()[0:1][0] == "" or content.splitlines()[0:1][0] == "\n" or content.splitlines()[0:1][0] == " ":
                 pass
             else:
-                print(content.splitlines()[0:1][0])
+                printf(content.splitlines()[0:1][0])
             if "You have reached a limit for sending mail" in content:
-                # print("You have reached a limit for sending mail. Your message was not sent.")
+                # printf("You have reached a limit for sending mail. Your message was not sent.")
                 raise Exception("You have reached a limit for sending mail. Your message was not sent.")
             if mnEmail in content:
                 current_time = time.time()
                 # Convert the current time to a human-readable format
                 formatted_time = time.strftime('%H:%M:%S', time.localtime(current_time))
-                print(f'{mnEmail} == Not EXIST {formatted_time}\n')
+                printf(f'{mnEmail} == Not EXIST {formatted_time}\n')
                 return False
             else:
                 return receive(recipient_email, count-1, id_num)
     except HttpError as error:
-        print('An error occurred: %s' % error)
+        printf('An error occurred: %s' % error)
 
 def getVars(index):
     data = []
@@ -147,20 +150,20 @@ def PatternCheck(full_name, domain,_idnum):
             else: ID_COUNTER[_idnum] += 1
 
             if verifying2(email,_idnum):
-                print(ID_COUNTER, file=open("credentials_log.txt", "w"))
+                printf(ID_COUNTER, file=open("credentials_log.txt", "w"))
                 return (getVars(i), email, ID_COUNTER[_idnum])
             
         except Exception as e:
-            print('[validate email ({})] :::: '.format(sys.exc_info()[-1].tb_lineno), type(e).__name__, e)
+            printf('[validate email ({})] :::: '.format(sys.exc_info()[-1].tb_lineno), type(e).__name__, e)
             raise Exception("Refresh problem")
     
-    print(ID_COUNTER, file=open("credentials_log.txt", "w"))
+    printf(ID_COUNTER, file=open("credentials_log.txt", "w"))
     return (None, None, ID_COUNTER[_idnum])
 
 
 
 if __name__ == "__main__":
     # if verifying2('priyamtomar133@gmail.com',24) == True:
-    #     print('YES')
+    #     printf('YES')
     # PatternCheck("savya sachi","acadecraft.net/",17)
     PatternCheck("Miguel Alonso", "webedia-group.com/", 17)

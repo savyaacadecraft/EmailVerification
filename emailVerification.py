@@ -30,6 +30,9 @@ client = MongoClient(connection_string)
 db = client['mydatabase']
 collection = db['my_collection']
 
+def printf(*args):
+    print(*args, file=open("All_Print_Logs.txt", "a"))
+
 def update_pattern_list(ptrn):
    
     with open("patterns.txt", "r") as file:
@@ -54,10 +57,10 @@ def patternCatcher(Company):
             dictionary = ast.literal_eval(first_line)
 
             # Access and work with the dictionary
-            print(dictionary)
+            printf(dictionary)
             return dictionary
     else:
-        print("File not found")
+        printf("File not found")
         return dict()
         
 
@@ -81,29 +84,29 @@ def CompanyEmailPatrn(Company, start_id):
             domain = data['Domain']
 
             if i['Verification'] == "pending":
-                print("Checking:",i["id"])
+                printf("Checking:",i["id"])
                 id = i['id']
                 fname = i['first']
                 lname = i['last']
 
                 fullName = f'{fname} {lname}'.replace(".","").replace(",","").replace("(","").replace(")","")
-                print(fullName)
+                printf(fullName)
 
                 while (idnum <= 30):
                     
                     try:
                         
-                        print(f"Email[{id}] ==", fullName,'\n-------------------------')
+                        printf(f"Email[{id}] ==", fullName,'\n-------------------------')
                         ptrn, EMail, counter = PatternCheck(fullName, domain, idnum)
                         break
 
                     except Exception as E:
-                        print("Exception: ",E)
-                        print(f"ID Value is :::: {idnum}")
+                        printf("Exception: ",E)
+                        printf(f"ID Value is :::: {idnum}")
                         idnum += 1
 
                 if counter > DAILY_LIMIT:
-                    print(f"******** Daily Limit Reached for ID: {idnum} ********")
+                    printf(f"******** Daily Limit Reached for ID: {idnum} ********")
                     idnum += 1
 
                 if EMail:
@@ -142,11 +145,11 @@ def CompanyEmailPatrn(Company, start_id):
                         return False
 
 
-                print(f'Email Found[{id}] ~ {EMail}\n--------------------------')
+                printf(f'Email Found[{id}] ~ {EMail}\n--------------------------')
                 
                 try:
                     update_pattern_list(ptrn)
-                    print(f'{ptrn} Listed first on patterns.txt')
+                    printf(f'{ptrn} Listed first on patterns.txt')
                 except Exception:
                     pass
 
@@ -158,10 +161,10 @@ def CompanyEmailPatrn(Company, start_id):
                 Emails.append(EMail)
 
         item_with_highest_value = max(patternSuc, key=lambda x: patternSuc[x])
-        print("Item with highest value:", item_with_highest_value)
+        printf("Item with highest value:", item_with_highest_value)
 
     except Exception as e:
-        print(e)
+        printf(e)
 
     
 
@@ -183,9 +186,9 @@ def CompanyEmailPatrn(Company, start_id):
 
 
 if __name__ == "__main__":
-
+    
     tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
-    print(tomorrow)
+    printf(tomorrow)
 
     companies = collection.find({"data_dict.Verification": "pending"}, {"Company":1})
     
@@ -194,18 +197,18 @@ if __name__ == "__main__":
         if tomorrow == datetime.now().strftime("%Y-%m-%d"):
             exit("Next Day Has Started ........")
 
-        print("################################################################################")
+        printf("################################################################################")
 
-        print("Company Name :::: ", company["Company"])
+        printf("Company Name :::: ", company["Company"])
         try:
             CompanyEmailPatrn(company["Company"], 15)
             
         except Exception as E:
-            print(E)
+            printf(E)
             break
 
         except KeyboardInterrupt as KE:
-            print("Generated KeyBoard Interrupt ::::::")
+            printf("Generated KeyBoard Interrupt ::::::")
             break
 
         
@@ -247,9 +250,9 @@ if __name__ == "__main__":
     # companies = collection.find({"status": "PC Completed", "data_dict.Verification": {"$in": [False, "pending"]}}, {"Domain":1, "data_dict":1})
     
     # for company in companies:
-    #     # print(company["Company"], company["totalProfiles"])
+    #     # printf(company["Company"], company["totalProfiles"])
     #     for i in company.keys():
-    #         print(i, company[i], sep=": ")
+    #         printf(i, company[i], sep=": ")
     #     break
         
     
@@ -264,7 +267,7 @@ if __name__ == "__main__":
     # for i in range(totalProfiles):
     #     Verification = (data[0]['data_dict'][i]['Verification'])
     #     if Verification == False or Verification == "pending":
-    #         print("Checking:",i)
+    #         printf("Checking:",i)
     #         id = (data[0]['data_dict'][i]['id'])
     #         fname = (data[0]['data_dict'][i]['first'])
     #         lname = (data[0]['data_dict'][i]['last'])
