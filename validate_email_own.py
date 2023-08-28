@@ -137,21 +137,19 @@ def PatternCheck(full_name, domain,_idnum):
         domain = ".".join(" ".join(domain.split("//")[1:]).replace("/","").replace("www.","").replace("-", "").split(".")[0:2])
     else:
         domain = domain.replace("www.","").replace("-", "").replace("/", "")
-    
-    print(domain)
 
     for i in range(16):
         try:
             ptrn = getVars(i).replace('firstname', name).replace('lastname', last).replace('firstinitial', name[0]).replace('lastinitial', last[0]).lower()
             email = f'{ptrn}@{domain}'
 
-            print(email)
             if _idnum not in ID_COUNTER.keys(): ID_COUNTER[_idnum] = 1
             else: ID_COUNTER[_idnum] += 1
 
             if verifying2(email,_idnum):
                 print(ID_COUNTER, file=open("credentials_log.txt", "w"))
                 return (getVars(i), email, ID_COUNTER[_idnum])
+            
         except Exception as e:
             print('[validate email ({})] :::: '.format(sys.exc_info()[-1].tb_lineno), type(e).__name__, e)
             raise Exception("Refresh problem")

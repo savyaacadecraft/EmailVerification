@@ -10,7 +10,7 @@ from os.path import exists
 from datetime import datetime, timedelta
 
 
-DAILY_LIMIT = 500
+DAILY_LIMIT = 800
 
 username = "manojtomar326"
 password = "Tomar@@##123"
@@ -64,6 +64,7 @@ def patternCatcher(Company):
 def CompanyEmailPatrn(Company, start_id):
     try:
         idnum = start_id
+        correctness = {"correct": 0, "incorrect": 0}
         
 
         try:
@@ -106,6 +107,7 @@ def CompanyEmailPatrn(Company, start_id):
                     idnum += 1
 
                 if EMail:
+                    correctness["correct"] += 1
                     collection.update_one({
                         "Company": Company,
                         "data_dict" :{"$elemMatch" : {"id": id}}
@@ -119,6 +121,8 @@ def CompanyEmailPatrn(Company, start_id):
                           }})
                     
                 else:
+                    correctness["incorrect"] += 1
+
                     # collection.update_one(
                     #     {"Company": Company, "data_dict" :{"$elemMatch" : {"id": id}}}, 
                     #     {'$set': {
@@ -133,7 +137,9 @@ def CompanyEmailPatrn(Company, start_id):
                             "data_dict.$.Verification": "pending"
                             }}
                         )
-                    return False
+                    
+                    if correctness["correct"] < correctness["incorrect"] and correctness["correct"] != 0 and correctness["incorrect"] != 0: 
+                        return False
 
 
                 print(f'Email Found[{id}] ~ {EMail}\n--------------------------')
