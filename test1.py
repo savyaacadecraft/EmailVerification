@@ -33,64 +33,87 @@ collection = db['my_collection']
 
 
 
-Company = collection.find_one({"Company": "Webedia"})
+# Company = collection.find_one({"Company": "Webedia"})
 
-for employee in Company["data_dict"]:
-    if employee['Verification'] == "Not Found":   
-        print(employee["id"])     
-        collection.update_one({"Company": "Webedia", "data_dict" :{"$elemMatch" : {"id": employee["id"]}} }, 
-                      {'$set': 
-                         {
-                            "data_dict.$.Verification": "pending"
-                          }
-                        })
+# for employee in Company["data_dict"]:
+#     if employee['Verification'] == "Not Found":   
+#         print(employee["id"])     
+#         collection.update_one({"Company": "Webedia", "data_dict" :{"$elemMatch" : {"id": employee["id"]}} }, 
+#                       {'$set': 
+#                          {
+#                             "data_dict.$.Verification": "pending"
+#                           }
+#                         })
 
-# str_date = "2023-06-16T18:20:53.118"
-collection.update_one({"Company": "N3TWORK", "data_dict" :{"$elemMatch" : {"id": 4}} }, 
-                      {'$set': 
-                         {
-                            "data_dict.$.Checked24": datetime.now() - timedelta(days=1, hours=6)
-                          }
-                        })
+# # str_date = "2023-06-16T18:20:53.118"
+# collection.update_one({"Company": "N3TWORK", "data_dict" :{"$elemMatch" : {"id": 4}} }, 
+#                       {'$set': 
+#                          {
+#                             "data_dict.$.Checked24": datetime.now() - timedelta(days=1, hours=6)
+#                           }
+#                         })
 
+today = datetime.now()
+the_day_before_yesterday = today - timedelta(days=1)
+yesterday = today - timedelta(days=0)
+
+results = [
+        {
+            '$match': {
+                'data_dict.Checked24': {
+                    '$gte': the_day_before_yesterday.replace(hour=0, minute=0, second=0, microsecond=0),
+                    '$lte': yesterday.replace(hour=0, minute=0, second=0, microsecond=0)
+                }
+            }
+        },
+        {
+            '$project': {
+                '_id': 0,
+                'From': '$Company',
+                'num_occurrences': {
+                    '$size': {
+                        '$filter': {
+                            'input': '$data_dict.Checked24',
+                            'as': 'checked',
+                            'cond': {
+                                '$and': [
+                                    {'$gte': ['$$checked', the_day_before_yesterday.replace(
+                                        hour=0, minute=0, second=0, microsecond=0)]},
+                                    {'$lte': ['$$checked', yesterday.replace(
+                                        hour=0, minute=0, second=0, microsecond=0)]}
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+Allresults = list(collection.aggregate(results))
+
+total_count = 0
+for i in Allresults:
+    print(i)
+    total_count += i["num_occurrences"]
+  
+print("Total Count of Checked24: ", total_count)
+print("----------------------------------------------------------------------------------------------------------")
 # today = datetime.now()
-# the_day_before_yesterday = today - timedelta(days=1)
-# yesterday = today - timedelta(days=0)
+# yesterday = today - timedelta(days=1)
+# dby = today - timedelta(days=2)
 
-# results = [
+# profilecount = collection.aggregate([
 #         {
-#             '$match': {
-#                 'data_dict.Checked24': {
-#                     '$gte': the_day_before_yesterday.replace(hour=0, minute=0, second=0, microsecond=0),
-#                     '$lte': yesterday.replace(hour=0, minute=0, second=0, microsecond=0)
-#                 }
-#             }
-#         },
-#         {
-#             '$project': {
-#                 '_id': 0,
-#                 'num_occurrences': {
-#                     '$size': {
-#                         '$filter': {
-#                             'input': '$data_dict.Checked24',
-#                             'as': 'checked',
-#                             'cond': {
-#                                 '$and': [
-#                                     {'$gte': ['$$checked', the_day_before_yesterday.replace(
-#                                         hour=0, minute=0, second=0, microsecond=0)]},
-#                                     {'$lte': ['$$checked', yesterday.replace(
-#                                         hour=0, minute=0, second=0, microsecond=0)]}
-#                                 ]
-#                             }
-#                         }
-#                     }
+#             "$match": {
+#                 "data_dict": {"$exists": True, "$type": "array"},
+#                 "data_dict.timestamp": {
+#                     "$gte": dby.replace(hour=0, minute=0, second=0, microsecond=0),
+#                     "$lte": yesterday.replace(hour=0, minute=0, second=0, microsecond=0)
 #                 }
 #             }
 #         }
-#     ]
-# Allresults = list(collection.aggregate(results))
+#     ])
 
 
-# print(Allresults)
-
-
+# for i in dir(profilecount):
+    # print(i)

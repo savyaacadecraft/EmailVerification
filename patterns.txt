@@ -1,8 +1,8 @@
-firstname
 firstinitiallastname
+firstinitiallastinitial
+firstname
 lastname.firstname
 lastinitialfirstinitial
-firstinitiallastinitial
 lastname
 firstname.lastname
 lastnamefirstname

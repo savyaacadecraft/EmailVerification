@@ -104,6 +104,8 @@ def CompanyEmailPatrn(Company, start_id):
                         printf("Exception: ",E)
                         printf(f"ID Value is :::: {idnum}")
                         idnum += 1
+                        EMail = None
+                        counter = DAILY_LIMIT
 
                 if counter > DAILY_LIMIT:
                     printf(f"******** Daily Limit Reached for ID: {idnum} ********")

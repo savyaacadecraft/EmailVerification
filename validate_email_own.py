@@ -47,6 +47,10 @@ def verifying2(recipient_email, id_num):
         printf("---", error)
         return False
     
+    except Exception as E:
+        print("___> ", E)
+        return False
+    
     
     sleep(0.1)
     knkt = receive(recipient_email, 11, id_num)
@@ -132,6 +136,7 @@ def getVars(index):
         
 def PatternCheck(full_name, domain,_idnum):
     global ID_COUNTER
+    print(full_name, domain,_idnum, sep=", ")
 
     name = full_name.split(" ")[0]
     last = full_name.split(" ")[1]
@@ -150,7 +155,7 @@ def PatternCheck(full_name, domain,_idnum):
             else: ID_COUNTER[_idnum] += 1
 
             if verifying2(email,_idnum):
-                printf(ID_COUNTER, file=open("credentials_log.txt", "w"))
+                print(ID_COUNTER, file=open("credentials_log.txt", "w"))
                 return (getVars(i), email, ID_COUNTER[_idnum])
             
         except Exception as e:
@@ -165,5 +170,5 @@ def PatternCheck(full_name, domain,_idnum):
 if __name__ == "__main__":
     # if verifying2('priyamtomar133@gmail.com',24) == True:
     #     printf('YES')
-    # PatternCheck("savya sachi","acadecraft.net/",17)
-    PatternCheck("Miguel Alonso", "webedia-group.com/", 17)
+    PatternCheck("savya sachi","acadecraft.net/", 30)
+    # PatternCheck("Miguel Alonso", "webedia-group.com/", 17)
