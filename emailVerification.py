@@ -93,7 +93,9 @@ def CompanyEmailPatrn(Company, start_id):
                 printf(fullName)
 
                 while (idnum <= 30):
-                    
+                    ptrn = None
+                    EMail = None
+                    counter = 0
                     try:
                         
                         printf(f"Email[{id}] ==", fullName,'\n-------------------------')
@@ -104,8 +106,7 @@ def CompanyEmailPatrn(Company, start_id):
                         printf("Exception: ",E)
                         printf(f"ID Value is :::: {idnum}")
                         idnum += 1
-                        EMail = None
-                        counter = DAILY_LIMIT
+
 
                 if counter > DAILY_LIMIT:
                     printf(f"******** Daily Limit Reached for ID: {idnum} ********")
@@ -171,7 +172,7 @@ def CompanyEmailPatrn(Company, start_id):
     
 
     try:
-        with open(f"{Company}.csv", 'a', encoding='utf-8') as f:
+        with open(f"Company/{Company}.csv", 'a', encoding='utf-8') as f:
             f.write(f'{Company}:\n{patternSuc}\n')
             f.write(', '.join(Emails))
             f.close()

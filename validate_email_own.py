@@ -136,7 +136,6 @@ def getVars(index):
         
 def PatternCheck(full_name, domain,_idnum):
     global ID_COUNTER
-    print(full_name, domain,_idnum, sep=", ")
 
     name = full_name.split(" ")[0]
     last = full_name.split(" ")[1]
