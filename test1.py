@@ -59,12 +59,9 @@ yesterday = today - timedelta(days=1)
 
 hourly_dict = dict()
 
-for i in range(24, 0, -1):
-
-    lh = 24 - i
-    sh = 24 - i + 1
-    greater_time = (today - timedelta(hours=lh)).replace(minute=0, second=0)
-    lower_time = (today - timedelta(hours=sh)).replace(minute=0, second=0)
+for i in range(24):
+    greater_time = (today - timedelta(hours=i)).replace(minute=0, second=0)
+    lower_time = (today - timedelta(hours=i+1)).replace(minute=0, second=0)
     
     key = greater_time.strftime('%H')+" to "+lower_time.strftime('%H')
     print(greater_time, lower_time, key, sep=" | ")
