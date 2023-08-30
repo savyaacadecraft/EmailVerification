@@ -1,4 +1,4 @@
-
+from pprint import pprint
 from pymongo import MongoClient
 from urllib.parse import quote_plus
 from datetime import datetime, timedelta
@@ -54,66 +54,74 @@ collection = db['my_collection']
 #                         })
 
 today = datetime.now()
-the_day_before_yesterday = today - timedelta(days=1)
-yesterday = today - timedelta(days=0)
+the_day_before_yesterday = today - timedelta(days=2)
+yesterday = today - timedelta(days=1)
 
-results = [
-        {
-            '$match': {
-                'data_dict.Checked24': {
-                    '$gte': the_day_before_yesterday.replace(hour=0, minute=0, second=0, microsecond=0),
-                    '$lte': yesterday.replace(hour=0, minute=0, second=0, microsecond=0)
-                }
-            }
-        },
-        {
-            '$project': {
-                '_id': 0,
-                'From': '$Company',
-                'num_occurrences': {
-                    '$size': {
-                        '$filter': {
-                            'input': '$data_dict.Checked24',
-                            'as': 'checked',
-                            'cond': {
-                                '$and': [
-                                    {'$gte': ['$$checked', the_day_before_yesterday.replace(
-                                        hour=0, minute=0, second=0, microsecond=0)]},
-                                    {'$lte': ['$$checked', yesterday.replace(
-                                        hour=0, minute=0, second=0, microsecond=0)]}
-                                ]
+hourly_dict = dict()
+
+for i in range(24, 0, -1):
+
+    lh = 24 - i
+    sh = 24 - i + 1
+    greater_time = (today - timedelta(hours=lh)).replace(minute=0, second=0)
+    lower_time = (today - timedelta(hours=sh)).replace(minute=0, second=0)
+    
+    key = greater_time.strftime('%H')+" to "+lower_time.strftime('%H')
+    print(greater_time, lower_time, key, sep=" | ")
+    hourly_dict[key] = 0
+    try:
+        results = [
+                {
+                    '$match': {
+                        'data_dict.Checked24': {
+                            '$gte': lower_time,
+                            '$lte': greater_time
+                        }
+                    }
+                },
+                {
+                    '$project': {
+                        '_id': 0,
+                        'num_occurrences': {
+                            '$size': {
+                                '$filter': {
+                                    'input': '$data_dict.Checked24',
+                                    'as': 'checked',
+                                    'cond': {
+                                        '$and': [
+                                            {'$gte': ['$$checked', lower_time]},
+                                            {'$lte': ['$$checked', greater_time]}
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
+                },
+                {
+                    '$group': {
+                        '_id': None,
+                        'total_checked24_sum': {
+                            '$sum': '$num_occurrences'
+                        }
+                    }
                 }
-            }
-        }
-    ]
-Allresults = list(collection.aggregate(results))
+            ]
+        data = list(collection.aggregate(results))
+    except Exception as E:
+        print("Iteration Count: ", i)
+        print(E)
 
-total_count = 0
-for i in Allresults:
-    print(i)
-    total_count += i["num_occurrences"]
-  
-print("Total Count of Checked24: ", total_count)
-print("----------------------------------------------------------------------------------------------------------")
-# today = datetime.now()
-# yesterday = today - timedelta(days=1)
-# dby = today - timedelta(days=2)
-
-# profilecount = collection.aggregate([
-#         {
-#             "$match": {
-#                 "data_dict": {"$exists": True, "$type": "array"},
-#                 "data_dict.timestamp": {
-#                     "$gte": dby.replace(hour=0, minute=0, second=0, microsecond=0),
-#                     "$lte": yesterday.replace(hour=0, minute=0, second=0, microsecond=0)
-#                 }
-#             }
-#         }
-#     ])
+    try:
+        hourly_dict[key] = data[0]["total_checked24_sum"]
+    except Exception as EX:
+        print("Count: ", i)
+        print(EX)
+        print(data)
+pprint(hourly_dict)
 
 
-# for i in dir(profilecount):
-    # print(i)
+# print("YesterDay Total: ", Allresults[0]["total_checked24_sum"])
+
+
+
