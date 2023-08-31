@@ -65,6 +65,7 @@ def patternCatcher(Company):
         
 
 def CompanyEmailPatrn(Company, start_id):
+    Company_Bool = False
     try:
         idnum = start_id
         correctness = {"correct": 0, "incorrect": 0}
@@ -83,7 +84,7 @@ def CompanyEmailPatrn(Company, start_id):
             # i['Verification'] in (False, "pending")
             domain = data['Domain']
 
-            if i['Verification'] == "pending":
+            if i['Verification'] in ["pending", False]:
                 printf("Checking:",i["id"])
                 id = i['id']
                 fname = i['first']
@@ -125,17 +126,10 @@ def CompanyEmailPatrn(Company, start_id):
                             "data_dict.$.Checked24": datetime.now()
                           
                           }})
+                    if not Company_Bool: Company_Bool = True
                     
                 else:
                     correctness["incorrect"] += 1
-
-                    # collection.update_one(
-                    #     {"Company": Company, "data_dict" :{"$elemMatch" : {"id": id}}}, 
-                    #     {'$set': {
-                    #         "data_dict.$.Verification": "Not Found",
-                    #         "data_dict.$.Checked24": datetime.now()
-                    #         }}
-                    #     )
 
                     collection.update_one(
                         {"Company": Company, "data_dict" :{"$elemMatch" : {"id": id}}}, 
@@ -150,11 +144,14 @@ def CompanyEmailPatrn(Company, start_id):
 
                 printf(f'Email Found[{id}] ~ {EMail}\n--------------------------')
                 
+                # This Section is used to update the pattern.txt 
+                # For pattern through which latest Email has been founded
                 try:
                     update_pattern_list(ptrn)
                     printf(f'{ptrn} Listed first on patterns.txt')
                 except Exception:
                     pass
+
 
                 if ptrn in patternSuc.keys():
                     patternSuc[ptrn] = int(patternSuc[ptrn])+1
@@ -187,6 +184,8 @@ def CompanyEmailPatrn(Company, start_id):
     except Exception:
         pass
 
+    return Company_Bool
+
 
 if __name__ == "__main__":
     
@@ -204,7 +203,9 @@ if __name__ == "__main__":
 
         printf("Company Name :::: ", company["Company"])
         try:
-            CompanyEmailPatrn(company["Company"], 15)
+            ptrn_found = CompanyEmailPatrn(company["Company"], 15)
+            if not ptrn_found:
+                print("Company: ", company, sep=", ", file=open("Pattern_Not_Found.csv", "a"))
             
         except Exception as E:
             printf(E)
