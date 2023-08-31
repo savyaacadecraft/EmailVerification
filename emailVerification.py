@@ -228,7 +228,7 @@ if __name__ == "__main__":
 
         printf("Company Name :::: ", company["Company"])
         try:
-            ptrn_found = CompanyEmailPatrn(company=company["Company"], start_id=idnum, condition="pending")
+            ptrn_found = CompanyEmailPatrn(Company=company["Company"], start_id=idnum, condition="pending")
             if not ptrn_found:
                 print("Company: ", company["Company"], sep=", ", file=open("Pattern_Not_Found.csv", "a"))
             
@@ -262,7 +262,7 @@ if __name__ == "__main__":
 
         printf("Company Name :::: ", company["Company"])
         try:
-            ptrn_found = CompanyEmailPatrn(company=company["Company"], start_id=idnum, condition=False)
+            ptrn_found = CompanyEmailPatrn(Company=company["Company"], start_id=idnum, condition=False)
             if not ptrn_found:
                 print("Company: ", company["Company"], sep=", ", file=open("Pattern_Not_Found.csv", "a"))
             
