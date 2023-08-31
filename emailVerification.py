@@ -64,7 +64,15 @@ def patternCatcher(Company):
     else:
         printf("File not found")
         return dict()
-        
+    
+def get_visited_companies():
+    Company_list = list()
+
+    with open("Company_List.txt", "r") as file:
+        for line in file:
+            Company_list.append(line.split("\n")[0])
+    
+    return Company_list
 
 def CompanyEmailPatrn(Company, start_id, condition=False):
     global idnum
@@ -192,6 +200,9 @@ def CompanyEmailPatrn(Company, start_id, condition=False):
 
 
 if __name__ == "__main__":
+
+    Company_list = get_visited_companies()
+
     idnum = 15
     tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
     printf(tomorrow)
@@ -200,6 +211,12 @@ if __name__ == "__main__":
     companies = collection.find({"data_dict.Verification": "pending"}, {"Company":1})
     
     for company in companies:
+
+        if company in Company_list:
+            continue
+        else: 
+            print(company, file=open("Company_List.txt", "a"))
+            Company_list = get_visited_companies()
 
         if tomorrow == datetime.now().strftime("%Y-%m-%d"):
             exit("Next Day Has Started ........")
@@ -223,11 +240,17 @@ if __name__ == "__main__":
             printf("Generated KeyBoard Interrupt ::::::")
             break
 
-    
+    print("Pending Phase Completed.......")
     # Running for False Email Verification
     companies = collection.find({"data_dict.Verification": False}, {"Company":1})
     
     for company in companies:
+
+        if company in Company_list:
+            continue
+        else: 
+            print(company, file=open("Company_List.txt", "a"))
+            Company_list = get_visited_companies()
 
         if tomorrow == datetime.now().strftime("%Y-%m-%d"):
             exit("Next Day Has Started ........")
@@ -251,7 +274,7 @@ if __name__ == "__main__":
             printf("Generated KeyBoard Interrupt ::::::")
             break
         
-    
+    print("False Phase Completed.......")
     
 
 
