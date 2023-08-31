@@ -66,7 +66,7 @@ def patternCatcher(Company):
         return dict()
         
 
-def CompanyEmailPatrn(Company, start_id):
+def CompanyEmailPatrn(Company, start_id, condition=False):
     global idnum
 
     Company_Bool = False
@@ -88,7 +88,7 @@ def CompanyEmailPatrn(Company, start_id):
             # i['Verification'] in (False, "pending")
             domain = data['Domain']
 
-            if i['Verification'] in ["pending", False]:
+            if i['Verification'] == condition:
                 printf("Checking:",i["id"])
                 id = i['id']
                 fname = i['first']
@@ -196,6 +196,7 @@ if __name__ == "__main__":
     tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
     printf(tomorrow)
 
+    # Running for Pending Email Verification
     companies = collection.find({"data_dict.Verification": "pending"}, {"Company":1})
     
     for company in companies:
@@ -210,7 +211,7 @@ if __name__ == "__main__":
 
         printf("Company Name :::: ", company["Company"])
         try:
-            ptrn_found = CompanyEmailPatrn(company["Company"], idnum)
+            ptrn_found = CompanyEmailPatrn(company=company["Company"], start_id=idnum, condition="pending")
             if not ptrn_found:
                 print("Company: ", company["Company"], sep=", ", file=open("Pattern_Not_Found.csv", "a"))
             
@@ -222,8 +223,35 @@ if __name__ == "__main__":
             printf("Generated KeyBoard Interrupt ::::::")
             break
 
-        
+    
+    # Running for False Email Verification
+    companies = collection.find({"data_dict.Verification": False}, {"Company":1})
+    
+    for company in companies:
 
+        if tomorrow == datetime.now().strftime("%Y-%m-%d"):
+            exit("Next Day Has Started ........")
+        
+        if idnum > 30:
+            exit("......Credential ID above 30 don't exist......")
+
+        printf("################################################################################")
+
+        printf("Company Name :::: ", company["Company"])
+        try:
+            ptrn_found = CompanyEmailPatrn(company=company["Company"], start_id=idnum, condition=False)
+            if not ptrn_found:
+                print("Company: ", company["Company"], sep=", ", file=open("Pattern_Not_Found.csv", "a"))
+            
+        except Exception as E:
+            printf(E)
+            break
+
+        except KeyboardInterrupt as KE:
+            printf("Generated KeyBoard Interrupt ::::::")
+            break
+        
+    
     
 
 
