@@ -205,7 +205,7 @@ if __name__ == "__main__":
         try:
             ptrn_found = CompanyEmailPatrn(company["Company"], 15)
             if not ptrn_found:
-                print("Company: ", company, sep=", ", file=open("Pattern_Not_Found.csv", "a"))
+                print("Company: ", company["Company"], sep=", ", file=open("Pattern_Not_Found.csv", "a"))
             
         except Exception as E:
             printf(E)
