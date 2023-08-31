@@ -48,7 +48,7 @@ def verifying2(recipient_email, id_num):
         return False
     
     except Exception as E:
-        print("___> ", E)
+        printf("___> ", E)
         return False
     
     

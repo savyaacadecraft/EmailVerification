@@ -30,6 +30,8 @@ client = MongoClient(connection_string)
 db = client['mydatabase']
 collection = db['my_collection']
 
+idnum = None
+
 def printf(*args):
     print(*args, file=open("All_Print_Logs.txt", "a"))
 
@@ -65,6 +67,8 @@ def patternCatcher(Company):
         
 
 def CompanyEmailPatrn(Company, start_id):
+    global idnum
+
     Company_Bool = False
     try:
         idnum = start_id
@@ -188,7 +192,7 @@ def CompanyEmailPatrn(Company, start_id):
 
 
 if __name__ == "__main__":
-    
+    idnum = 15
     tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
     printf(tomorrow)
 
@@ -198,12 +202,15 @@ if __name__ == "__main__":
 
         if tomorrow == datetime.now().strftime("%Y-%m-%d"):
             exit("Next Day Has Started ........")
+        
+        if idnum > 30:
+            exit("......Credential ID above 30 don't exist......")
 
         printf("################################################################################")
 
         printf("Company Name :::: ", company["Company"])
         try:
-            ptrn_found = CompanyEmailPatrn(company["Company"], 15)
+            ptrn_found = CompanyEmailPatrn(company["Company"], idnum)
             if not ptrn_found:
                 print("Company: ", company["Company"], sep=", ", file=open("Pattern_Not_Found.csv", "a"))
             
