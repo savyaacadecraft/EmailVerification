@@ -212,10 +212,10 @@ if __name__ == "__main__":
     
     for company in companies:
 
-        if company in Company_list:
+        if company["Company"] in Company_list:
             continue
         else: 
-            print(company, file=open("Company_List.txt", "a"))
+            print(company["Company"], file=open("Company_List.txt", "a"))
             Company_list = get_visited_companies()
 
         if tomorrow == datetime.now().strftime("%Y-%m-%d"):
@@ -240,16 +240,16 @@ if __name__ == "__main__":
             printf("Generated KeyBoard Interrupt ::::::")
             break
 
-    print("Pending Phase Completed.......")
+    printf("Pending Phase Completed.......")
     # Running for False Email Verification
     companies = collection.find({"data_dict.Verification": False}, {"Company":1})
     
     for company in companies:
 
-        if company in Company_list:
+        if company["Company"] in Company_list:
             continue
         else: 
-            print(company, file=open("Company_List.txt", "a"))
+            print(company["Company"], file=open("Company_List.txt", "a"))
             Company_list = get_visited_companies()
 
         if tomorrow == datetime.now().strftime("%Y-%m-%d"):
@@ -274,7 +274,7 @@ if __name__ == "__main__":
             printf("Generated KeyBoard Interrupt ::::::")
             break
         
-    print("False Phase Completed.......")
+    printf("False Phase Completed.......")
     
 
 
