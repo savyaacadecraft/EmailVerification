@@ -65,16 +65,16 @@ def patternCatcher(Company):
         printf("File not found")
         return dict()
     
-def get_visited_companies():
+def get_file_data(file_name):
     Company_list = list()
 
-    with open("Company_List.txt", "r") as file:
+    with open(file_name, "r") as file:
         for line in file:
             Company_list.append(line.split("\n")[0])
     
     return Company_list
 
-def CompanyEmailPatrn(Company, start_id, condition=False):
+def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
     global idnum
 
     Company_Bool = False
@@ -112,7 +112,7 @@ def CompanyEmailPatrn(Company, start_id, condition=False):
                     try:
                         
                         printf(f"Email[{id}] ==", fullName,'\n-------------------------')
-                        ptrn, EMail, counter = PatternCheck(fullName, domain, idnum)
+                        ptrn, EMail, counter = PatternCheck(fullName, domain, idnum, pattern_list=pattern)
                         break
 
                     except Exception as E:
@@ -198,10 +198,9 @@ def CompanyEmailPatrn(Company, start_id, condition=False):
 
     return Company_Bool
 
-
 if __name__ == "__main__":
 
-    Company_list = get_visited_companies()
+    Company_list = get_file_data("Company_List.txt")
 
     idnum = 15
     tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
@@ -216,7 +215,7 @@ if __name__ == "__main__":
             continue
         else: 
             print(company["Company"], file=open("Company_List.txt", "a"))
-            Company_list = get_visited_companies()
+            Company_list = get_file_data()
 
         if tomorrow == datetime.now().strftime("%Y-%m-%d"):
             exit("Next Day Has Started ........")
@@ -241,40 +240,6 @@ if __name__ == "__main__":
             break
 
     printf("Pending Phase Completed.......")
-    # Running for False Email Verification
-    companies = collection.find({"data_dict.Verification": False}, {"Company":1})
-    
-    for company in companies:
-
-        if company["Company"] in Company_list:
-            continue
-        else: 
-            print(company["Company"], file=open("Company_List.txt", "a"))
-            Company_list = get_visited_companies()
-
-        if tomorrow == datetime.now().strftime("%Y-%m-%d"):
-            exit("Next Day Has Started ........")
-        
-        if idnum > 30:
-            exit("......Credential ID above 30 don't exist......")
-
-        printf("################################################################################")
-
-        printf("Company Name :::: ", company["Company"])
-        try:
-            ptrn_found = CompanyEmailPatrn(Company=company["Company"], start_id=idnum, condition=False)
-            if not ptrn_found:
-                print("Company: ", company["Company"], sep=", ", file=open("Pattern_Not_Found.csv", "a"))
-            
-        except Exception as E:
-            printf(E)
-            break
-
-        except KeyboardInterrupt as KE:
-            printf("Generated KeyBoard Interrupt ::::::")
-            break
-        
-    printf("False Phase Completed.......")
     
 
 

@@ -134,7 +134,7 @@ def getVars(index):
     
     return data[index]
         
-def PatternCheck(full_name, domain,_idnum):
+def PatternCheck(full_name, domain,_idnum, pattern_list=None):
     global ID_COUNTER
 
     name = full_name.split(" ")[0]
@@ -145,23 +145,43 @@ def PatternCheck(full_name, domain,_idnum):
     else:
         domain = domain.replace("www.","").replace("-", "").replace("/", "")
 
-    for i in range(16):
-        try:
-            ptrn = getVars(i).replace('firstname', name).replace('lastname', last).replace('firstinitial', name[0]).replace('lastinitial', last[0]).lower()
-            email = f'{ptrn}@{domain}'
+    if pattern_list:
+        for i in pattern_list:
+            try:
+                ptrn = i.replace('firstname', name).replace('lastname', last).replace('firstinitial', name[0]).replace('lastinitial', last[0]).lower()
+                email = f'{ptrn}@{domain}'
 
-            if _idnum not in ID_COUNTER.keys(): ID_COUNTER[_idnum] = 1
-            else: ID_COUNTER[_idnum] += 1
+                if _idnum not in ID_COUNTER.keys(): ID_COUNTER[_idnum] = 1
+                else: ID_COUNTER[_idnum] += 1
 
-            if verifying2(email,_idnum):
-                print(ID_COUNTER, file=open("credentials_log.txt", "w"))
-                return (getVars(i), email, ID_COUNTER[_idnum])
-            
-        except Exception as e:
-            printf('[validate email ({})] :::: '.format(sys.exc_info()[-1].tb_lineno), type(e).__name__, e)
-            raise Exception("Refresh problem")
-    
-    printf(ID_COUNTER, file=open("credentials_log.txt", "w"))
+                if verifying2(email,_idnum):
+                    print(ID_COUNTER, file=open("credentials_log.txt", "w"))
+                    return (i, email, ID_COUNTER[_idnum])
+
+            except Exception as e:
+                printf('[validate email ({})] :::: '.format(sys.exc_info()[-1].tb_lineno), type(e).__name__, e)
+                raise Exception("Refresh problem")
+        
+        print(ID_COUNTER, file=open("credentials_log.txt", "w"))
+
+    else:
+        for i in range(16):
+            try:
+                ptrn = getVars(i).replace('firstname', name).replace('lastname', last).replace('firstinitial', name[0]).replace('lastinitial', last[0]).lower()
+                email = f'{ptrn}@{domain}'
+
+                if _idnum not in ID_COUNTER.keys(): ID_COUNTER[_idnum] = 1
+                else: ID_COUNTER[_idnum] += 1
+
+                if verifying2(email,_idnum):
+                    print(ID_COUNTER, file=open("credentials_log.txt", "w"))
+                    return (getVars(i), email, ID_COUNTER[_idnum])
+                
+            except Exception as e:
+                printf('[validate email ({})] :::: '.format(sys.exc_info()[-1].tb_lineno), type(e).__name__, e)
+                raise Exception("Refresh problem")
+        
+        printf(ID_COUNTER, file=open("credentials_log.txt", "w"))
     return (None, None, ID_COUNTER[_idnum])
 
 
