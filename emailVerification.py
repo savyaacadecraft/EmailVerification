@@ -33,7 +33,7 @@ collection = db['my_collection']
 idnum = None
 
 def printf(*args):
-    print(*args, file=open("All_Print_Logs.txt", "a"))
+    print(*args, file=open("All_Pending_Logs.txt", "a"))
 
 def update_pattern_list(ptrn):
    

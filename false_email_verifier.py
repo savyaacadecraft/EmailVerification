@@ -31,7 +31,7 @@ collection = db['my_collection']
 idnum = None
 
 def printf(*args):
-    print(*args, file=open("All_Print_Logs.txt", "a"))
+    print(*args, file=open("All_False_Logs.txt", "a"))
 
 def get_file_data(file_name):
     Company_list = list()
