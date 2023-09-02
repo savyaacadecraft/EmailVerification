@@ -7,6 +7,7 @@ from urllib.parse import quote_plus
 import ast
 from sys import exit
 from os.path import exists
+from os import system
 from datetime import datetime, timedelta
 
 
@@ -31,6 +32,7 @@ db = client['mydatabase']
 collection = db['my_collection']
 
 idnum = None
+ID_MAX = None
 
 def printf(*args):
     print(*args, file=open("All_Pending_Logs.txt", "a"))
@@ -68,14 +70,18 @@ def patternCatcher(Company):
 def get_file_data(file_name):
     Company_list = list()
 
-    with open(file_name, "r") as file:
-        for line in file:
-            Company_list.append(line.split("\n")[0])
+    if exists(file_name):
+        with open(file_name, "r") as file:
+            for line in file:
+                Company_list.append(line.split("\n")[0])
     
-    return Company_list
+        return Company_list
+    else:
+        system(f"touch {file_name}")
+        return Company_list
 
 def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
-    global idnum
+    global idnum, ID_MAX
 
     Company_Bool = False
     try:
@@ -105,7 +111,7 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
                 fullName = f'{fname} {lname}'.replace(".","").replace(",","").replace("(","").replace(")","")
                 printf(fullName)
 
-                while (idnum <= 30):
+                while (idnum <= ID_MAX):
                     ptrn = None
                     EMail = None
                     counter = 0
@@ -202,7 +208,8 @@ if __name__ == "__main__":
 
     Company_list = get_file_data("Company_List.txt")
 
-    idnum = 15
+    idnum = 31
+    ID_MAX = 40
     tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
     printf(tomorrow)
 
@@ -220,7 +227,7 @@ if __name__ == "__main__":
         if tomorrow == datetime.now().strftime("%Y-%m-%d"):
             exit("Next Day Has Started ........")
         
-        if idnum > 30:
+        if idnum > ID_MAX:
             exit("......Credential ID above 30 don't exist......")
 
         printf("################################################################################")

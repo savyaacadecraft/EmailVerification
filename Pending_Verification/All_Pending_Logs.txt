@@ -1,0 +1,56 @@
+2023-09-03
+################################################################################
+Company Name ::::  Syneos Health
+File not found
+Checking: 2
+Ann E
+Email[2] == Ann E 
+-------------------------
+Email Found[2] ~ ea@syneoshealth.com
+--------------------------
+Checking: 4
+Diego G
+Email[4] == Diego G 
+-------------------------
+Email Found[4] ~ diego.g@syneoshealth.com
+--------------------------
+Checking: 5
+EC Wilson
+Email[5] == EC Wilson 
+-------------------------
+Exception:  Refresh problem
+ID Value is :::: 31
+Email[5] == EC Wilson 
+-------------------------
+Exception:  printf() got an unexpected keyword argument 'file'
+ID Value is :::: 32
+Email[5] == EC Wilson 
+-------------------------
+Exception:  printf() got an unexpected keyword argument 'file'
+ID Value is :::: 33
+Email[5] == EC Wilson 
+-------------------------
+Email Found[5] ~ ec.wilson@syneoshealth.com
+--------------------------
+Checking: 6
+Francesca Scaramozzino
+Email[6] == Francesca Scaramozzino 
+-------------------------
+Email Found[6] ~ francesca.scaramozzino@syneoshealth.com
+--------------------------
+Checking: 7
+Tyler Colegrove
+Email[7] == Tyler Colegrove 
+-------------------------
+Email Found[7] ~ tyler.colegrove@syneoshealth.com
+--------------------------
+Checking: 8
+Michael Brooks
+Email[8] == Michael Brooks 
+-------------------------
+Email Found[8] ~ michael.brooks@syneoshealth.com
+--------------------------
+Checking: 9
+Rachel Newport
+Email[9] == Rachel Newport 
+-------------------------

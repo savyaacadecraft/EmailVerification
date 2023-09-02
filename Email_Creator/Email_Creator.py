@@ -254,8 +254,8 @@ def CompanyEmailPatrn(Company, start_id, condition='none', pattern=None):
 
 if __name__ == "__main__":
 
-    idnum = 15
-    MAX_ID = 30
+    idnum = 51
+    MAX_ID = 65
     tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
     printf(tomorrow)
 

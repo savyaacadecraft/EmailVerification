@@ -29,6 +29,7 @@ db = client['mydatabase']
 collection = db['my_collection']
 
 idnum = None
+ID_MAX = None
 
 def printf(*args):
     print(*args, file=open("All_False_Logs.txt", "a"))
@@ -108,7 +109,7 @@ def get_company_pattern_list(company, domain):
         return get_file_data("patterns.txt")
 
 def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
-    global idnum
+    global idnum, ID_MAX
 
     Company_Bool = False
     try:
@@ -138,7 +139,7 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
                 fullName = f'{fname} {lname}'.replace(".","").replace(",","").replace("(","").replace(")","")
                 printf(fullName)
 
-                while (idnum <= 30):
+                while (idnum <= ID_MAX):
                     ptrn = None
                     EMail = None
                     counter = 0
@@ -226,7 +227,10 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
 
 if __name__ == "__main__":
 
-    idnum = 15
+    idnum = 41
+    ID_MAX = 50
+
+
     tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
     printf(tomorrow)
 
@@ -238,7 +242,7 @@ if __name__ == "__main__":
             printf("........ Next Day Has Started ........")
             exit("........ Next Day Has Started ........")
         
-        if idnum > 30:
+        if idnum > ID_MAX:
             printf("......Credential ID above 30 don't exist......")
             exit("......Credential ID above 30 don't exist......")
 
