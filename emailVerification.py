@@ -215,7 +215,7 @@ if __name__ == "__main__":
             continue
         else: 
             print(company["Company"], file=open("Company_List.txt", "a"))
-            Company_list = get_file_data()
+            Company_list = get_file_data("Company_List.txt")
 
         if tomorrow == datetime.now().strftime("%Y-%m-%d"):
             exit("Next Day Has Started ........")

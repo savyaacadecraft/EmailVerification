@@ -9,7 +9,6 @@ from datetime import datetime, timedelta
 
 DAILY_LIMIT = 800
 
-
 username = "manojtomar326"
 password = "Tomar@@##123"
 cluster_url = "cluster0.ldghyxl.mongodb.net"
@@ -29,18 +28,25 @@ db = client['mydatabase']
 collection = db['my_collection']
 
 idnum = None
+MAX_ID = None
 
 def printf(*args):
-    print(*args, file=open("All_False_Logs.txt", "a"))
+    print(*args, file=open("All_Pending_Logs.txt", "a"))
 
-def get_file_data(file_name):
-    Company_list = list()
+def update_pattern_list(ptrn):
+   
+    with open("patterns.txt", "r") as file:
+        patterns = file.readlines()
 
-    with open(file_name, "r") as file:
-        for line in file:
-            Company_list.append(line.split("\n")[0])
-    
-    return Company_list
+    patterns = [pattern.strip() for pattern in patterns]
+
+    if ptrn in patterns:
+        patterns.remove(ptrn)
+        patterns.insert(0, ptrn)
+
+    with open("patterns.txt", "w") as file:
+        for pattern in patterns:
+            file.write( pattern + "\n")
 
 def patternCatcher(Company):
     if exists(f'Companies/{Company}.csv'):
@@ -56,6 +62,15 @@ def patternCatcher(Company):
     else:
         printf("File not found")
         return dict()
+    
+def get_file_data(file_name):
+    Company_list = list()
+
+    with open(file_name, "r") as file:
+        for line in file:
+            Company_list.append(line.split("\n")[0])
+    
+    return Company_list
 
 def get_pattern(Domain, True_Data) -> dict:
     
@@ -83,13 +98,13 @@ def get_pattern(Domain, True_Data) -> dict:
                     pattern_dict[ptrn] = 1
 
         
-    final_list = sorted(pattern_dict, key=lambda k: pattern_dict[k], reverse=True)
+    final_list = sorted(pattern_dict, key=lambda k: pattern_dict[k])
     for i in final_list:
         if i in pattern_list:
             index = pattern_list.index(i)
             pattern_list.pop(index)
     
-    return pattern_list + final_list
+    return final_list + pattern_list
 
 def get_company_pattern_list(company, domain):
 
@@ -107,10 +122,11 @@ def get_company_pattern_list(company, domain):
         printf("Exception: ", E, company["Company"])
         return get_file_data("patterns.txt")
 
-def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
-    global idnum
+def CompanyEmailPatrn(Company, start_id, condition='none', pattern=None):
+    global idnum, MAX_ID
 
     Company_Bool = False
+    pattern_counter = 0
     try:
         idnum = start_id
         correctness = {"correct": 0, "incorrect": 0}
@@ -123,13 +139,17 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
         
         Emails = []
         data = collection.find_one({"Company": Company,}, {"Domain": 1, "data_dict": 1})
+        domain = data['Domain']
+
 
         for i in data["data_dict"]:
 
-            # i['Verification'] in (False, "pending")
-            domain = data['Domain']
+            if pattern_counter == 10:
+                pattern_counter = 0
+                pattern = get_company_pattern_list(company=Company, domain=domain)
+           
 
-            if i['Verification'] == condition:
+            if i['email'] == condition:
                 printf("Checking:",i["id"])
                 id = i['id']
                 fname = i['first']
@@ -138,7 +158,7 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
                 fullName = f'{fname} {lname}'.replace(".","").replace(",","").replace("(","").replace(")","")
                 printf(fullName)
 
-                while (idnum <= 30):
+                while (idnum <= MAX_ID):
                     ptrn = None
                     EMail = None
                     counter = 0
@@ -172,6 +192,7 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
                           
                           }})
                     if not Company_Bool: Company_Bool = True
+                    pattern_counter += 1
                     
                 else:
                     correctness["incorrect"] += 1
@@ -189,6 +210,15 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
 
                 printf(f'Email Found[{id}] ~ {EMail}\n--------------------------')
                 
+                # This Section is used to update the pattern.txt 
+                # For pattern through which latest Email has been founded
+                try:
+                    update_pattern_list(ptrn)
+                    printf(f'{ptrn} Listed first on patterns.txt')
+                except Exception:
+                    pass
+
+
                 if ptrn in patternSuc.keys():
                     patternSuc[ptrn] = int(patternSuc[ptrn])+1
                 else:
@@ -222,44 +252,36 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
 
     return Company_Bool
 
-
-
 if __name__ == "__main__":
 
     idnum = 15
+    MAX_ID = 30
     tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
     printf(tomorrow)
 
-    companies = collection.find({"data_dict.Verification": False}, {"Company":1, "Domain": 1})
-    
-    for company in companies:
+    data = list(collection.aggregate([
+        {
+            "$match": {
+                "data_dict": {
+                    "$elemMatch": {"email": 'none'}
+                }
+            }
+        },
+        {
+            "$group": {
+                "_id": "$Company"
+            }
+        }
+    ]))
+
+    for i in data:
 
         if tomorrow == datetime.now().strftime("%Y-%m-%d"):
             printf("........ Next Day Has Started ........")
             exit("........ Next Day Has Started ........")
         
-        if idnum > 30:
+        if idnum > MAX_ID:
             printf("......Credential ID above 30 don't exist......")
             exit("......Credential ID above 30 don't exist......")
 
-        printf("################################################################################")
-
-        printf("Company Name :::: ", company["Company"])
-
-        _pattern = get_company_pattern_list(company=company["Company"], domain=company["Domain"])
-
-        ptrn_found = CompanyEmailPatrn(Company=company["Company"], start_id=idnum, condition=False, pattern=_pattern)
-
-        if not ptrn_found:
-            
-            print("Company: ", company["Company"], sep=", ", file=open("Pattern_Not_Found.csv", "a"))
-
-        
-    printf("False Phase Completed.......")
-        
-
-        
-        
-
-        
-        
+        CompanyEmailPatrn(Company=i["_id"], start_id=idnum)
