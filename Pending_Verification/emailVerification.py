@@ -80,7 +80,7 @@ def get_file_data(file_name):
         system(f"touch {file_name}")
         return Company_list
 
-def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
+def CompanyEmailPatrn(Company, start_id, pattern=None):
     global idnum, ID_MAX
 
     Company_Bool = False
@@ -102,7 +102,7 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
             # i['Verification'] in (False, "pending")
             domain = data['Domain']
 
-            if i['Verification'] == condition:
+            if i['Verification'] == "Pending":
                 printf("Checking:",i["id"])
                 id = i['id']
                 fname = i['first']
@@ -234,7 +234,7 @@ if __name__ == "__main__":
 
         printf("Company Name :::: ", company["Company"])
         try:
-            ptrn_found = CompanyEmailPatrn(Company=company["Company"], start_id=idnum, condition="pending")
+            ptrn_found = CompanyEmailPatrn(Company=company["Company"], start_id=idnum)
             if not ptrn_found:
                 print("Company: ", company["Company"], sep=", ", file=open("Pattern_Not_Found.csv", "a"))
             

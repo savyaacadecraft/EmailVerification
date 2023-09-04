@@ -71,8 +71,10 @@ def get_pattern(Domain, True_Data) -> dict:
 
     for i in True_Data:
 
-        for i in pattern_list:
-            ptrn = i.replace('firstname', i["first"]).replace('lastname', i["last"]).replace('firstinitial', i["first"][0]).replace('lastinitial', i["last"][0]).lower()
+        for j in pattern_list:
+            print("Value of i: ", i)
+            print("Value of j: ", j)
+            ptrn = j.replace('firstname', i["first"]).replace('lastname', i["last"]).replace('firstinitial', i["first"][0]).replace('lastinitial', i["last"][0]).lower()
             mail = f'{ptrn}@{Domain}'
 
             if i["email"] == mail:
