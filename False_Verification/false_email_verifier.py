@@ -61,7 +61,7 @@ def patternCatcher(Company):
 def get_pattern(Domain, True_Data) -> dict:
     
     pattern_dict = dict()
-    pattern_list = get_file_data("patterns.txt")
+    pattern_list = get_file_data("../patterns.txt")
 
     if "//" in Domain:
         Domain = ".".join(" ".join(Domain.split("//")[1:]).replace("/","").replace("www.","").replace("-", "").split(".")[0:2])
@@ -106,7 +106,7 @@ def get_company_pattern_list(company, domain):
     except Exception as E:
         printf(":::::Company Pattern List Not Found:::::")
         printf("Exception: ", E, company["Company"])
-        return get_file_data("patterns.txt")
+        return get_file_data("../patterns.txt")
 
 def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
     global idnum, ID_MAX

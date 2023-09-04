@@ -35,7 +35,7 @@ def printf(*args):
 
 def update_pattern_list(ptrn):
    
-    with open("patterns.txt", "r") as file:
+    with open("../../patterns.txt", "r") as file:
         patterns = file.readlines()
 
     patterns = [pattern.strip() for pattern in patterns]
@@ -44,7 +44,7 @@ def update_pattern_list(ptrn):
         patterns.remove(ptrn)
         patterns.insert(0, ptrn)
 
-    with open("patterns.txt", "w") as file:
+    with open("../../patterns.txt", "w") as file:
         for pattern in patterns:
             file.write( pattern + "\n")
 
@@ -75,7 +75,7 @@ def get_file_data(file_name):
 def get_pattern(Domain, True_Data) -> dict:
     
     pattern_dict = dict()
-    pattern_list = get_file_data("patterns.txt")
+    pattern_list = get_file_data("../../patterns.txt")
 
     if "//" in Domain:
         Domain = ".".join(" ".join(Domain.split("//")[1:]).replace("/","").replace("www.","").replace("-", "").split(".")[0:2])
@@ -120,7 +120,7 @@ def get_company_pattern_list(company, domain):
     except Exception as E:
         printf(":::::Company Pattern List Not Found:::::")
         printf("Exception: ", E, company["Company"])
-        return get_file_data("patterns.txt")
+        return get_file_data("../../patterns.txt")
 
 def CompanyEmailPatrn(Company, start_id, condition='none', pattern=None):
     global idnum, MAX_ID
@@ -214,7 +214,7 @@ def CompanyEmailPatrn(Company, start_id, condition='none', pattern=None):
                 # For pattern through which latest Email has been founded
                 try:
                     update_pattern_list(ptrn)
-                    printf(f'{ptrn} Listed first on patterns.txt')
+                    printf(f'{ptrn} Listed first on ../../patterns.txt')
                 except Exception:
                     pass
 
