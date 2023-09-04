@@ -181,7 +181,7 @@ def PatternCheck(full_name, domain,_idnum, pattern_list=None):
                 printf('[validate email ({})] :::: '.format(sys.exc_info()[-1].tb_lineno), type(e).__name__, e)
                 raise Exception("Refresh problem")
         
-        printf(ID_COUNTER, file=open("credentials_log.txt", "w"))
+        print(ID_COUNTER, file=open("credentials_log.txt", "w"))
     return (None, None, ID_COUNTER[_idnum])
 
 
