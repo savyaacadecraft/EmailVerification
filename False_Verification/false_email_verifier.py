@@ -153,7 +153,6 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
                     except Exception as E:
                         printf("Exception: ",E)
                         printf(f"ID Value is :::: {idnum}")
-                        idnum += 1
 
 
                 if counter > DAILY_LIMIT:
@@ -181,7 +180,7 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
                     collection.update_one(
                         {"Company": Company, "data_dict" :{"$elemMatch" : {"id": id}}}, 
                         {'$set': {
-                            "data_dict.$.Verification": "pending"
+                            "data_dict.$.Verification": False
                             }}
                         )
                     
@@ -232,16 +231,9 @@ if __name__ == "__main__":
     ID_MAX = 50
 
 
-    tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
-    printf(tomorrow)
-
     companies = collection.find({"data_dict.Verification": False}, {"Company":1, "Domain": 1})
     
     for company in companies:
-
-        if tomorrow == datetime.now().strftime("%Y-%m-%d"):
-            printf("........ Next Day Has Started ........")
-            exit("........ Next Day Has Started ........")
         
         if idnum > ID_MAX:
             printf("......Credential ID above 30 don't exist......")

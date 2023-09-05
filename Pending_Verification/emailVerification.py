@@ -101,6 +101,7 @@ def CompanyEmailPatrn(Company, start_id, pattern=None):
 
             # i['Verification'] in (False, "pending")
             domain = data['Domain']
+            NULL_COUNTER = 0
 
             if i['Verification'] == "pending":
                 printf("Checking:",i["id"])
@@ -122,9 +123,16 @@ def CompanyEmailPatrn(Company, start_id, pattern=None):
                         break
 
                     except Exception as E:
+                        if "Refresh problem"  in E:
+                            NULL_COUNTER += 1
+                            if NULL_COUNTER >= 4: 
+
+                                return False
+
+                        else:
+                            NULL_COUNTER = 0
                         printf("Exception: ",E)
                         printf(f"ID Value is :::: {idnum}")
-                        idnum += 1
 
 
                 if counter > DAILY_LIMIT:
@@ -208,10 +216,9 @@ if __name__ == "__main__":
 
     Company_list = get_file_data("Company_List.txt")
 
-    idnum = 15
+    idnum = 20
     ID_MAX = 40
-    tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
-    printf(tomorrow)
+
 
     # Running for Pending Email Verification
     companies = collection.find({"data_dict.Verification": "pending"}, {"Company":1})
@@ -224,8 +231,6 @@ if __name__ == "__main__":
             print(company["Company"], file=open("Company_List.txt", "a"))
             Company_list = get_file_data("Company_List.txt")
 
-        if tomorrow == datetime.now().strftime("%Y-%m-%d"):
-            exit("Next Day Has Started ........")
         
         if idnum > ID_MAX:
             exit("......Credential ID above 30 don't exist......")

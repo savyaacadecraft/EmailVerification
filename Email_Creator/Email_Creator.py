@@ -200,7 +200,7 @@ def CompanyEmailPatrn(Company, start_id, condition='none', pattern=None):
                     collection.update_one(
                         {"Company": Company, "data_dict" :{"$elemMatch" : {"id": id}}}, 
                         {'$set': {
-                            "data_dict.$.Verification": "pending"
+                            "data_dict.$.Verification": False
                             }}
                         )
                     
