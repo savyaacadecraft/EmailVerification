@@ -53,7 +53,7 @@ def update_pattern_list(ptrn):
             file.write( pattern + "\n")
 
 def patternCatcher(Company):
-    if exists(f'Companies/{Company}.csv'):
+    if exists(f'../Companies/{Company}.csv'):
         with open(f'{Company}.csv','r',encoding='utf-8') as f:
             first_line = f.readlines()[1]
             
@@ -102,7 +102,7 @@ def CompanyEmailPatrn(Company, start_id, pattern=None):
             # i['Verification'] in (False, "pending")
             domain = data['Domain']
 
-            if i['Verification'] == "Pending":
+            if i['Verification'] == "pending":
                 printf("Checking:",i["id"])
                 id = i['id']
                 fname = i['first']
@@ -208,7 +208,7 @@ if __name__ == "__main__":
 
     Company_list = get_file_data("Company_List.txt")
 
-    idnum = 31
+    idnum = 15
     ID_MAX = 40
     tomorrow = ((datetime.now()) + timedelta(days=1)).strftime("%Y-%m-%d")
     printf(tomorrow)
