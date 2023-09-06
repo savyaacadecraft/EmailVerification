@@ -1,16 +1,19 @@
 cd /python/Savya/EmailVerification
 
 # To Start Pending verification
-kill -9 $(cat Pending_Verification/Process.txt)
-python3 Pending_Verification/emailVerification.py & 
-echo $! > Pending_Verification/Process.txt
+cd Pending_Verification/
+kill -9 $(cat Process.txt)
+python3 emailVerification.py & 
+echo $! > Process.txt
 
 # To Start False verification
-kill -9 $(cat False_Verification/Process.txt)
-python3 False_Verification/false_email_verifier.py & 
-echo $! > False_Verification/Process.txt
+cd ../False_Verification/
+kill -9 $(cat Process.txt)
+python3 false_email_verifier.py & 
+echo $! > Process.txt
 
 # To Start Creation Operation
-kill -9 $(cat Email_Creator/Process.txt)
-python3 Email_Creator/Email_Creator.py & 
-echo $! > Email_Creator/Process.txt
+cd ../Email_Creator/
+kill -9 $(cat Process.txt)
+python3 Email_Creator.py & 
+echo $! > Process.txt

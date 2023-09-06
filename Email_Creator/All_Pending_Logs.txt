@@ -1,0 +1,164 @@
+2023-09-07
+File not found
+Checking: 2
+Mark Szewc
+Email[2] == Mark Szewc 
+-------------------------
+Email Found[2] ~ ms@gilead.com
+--------------------------
+firstinitiallastinitial Listed first on ../../patterns.txt
+Checking: 3
+Bill Merritt
+Email[3] == Bill Merritt 
+-------------------------
+Email Found[3] ~ merritt.bill@gilead.com
+--------------------------
+lastname.firstname Listed first on ../../patterns.txt
+Checking: 4
+Danielle Cascerceri
+Email[4] == Danielle Cascerceri 
+-------------------------
+Email Found[4] ~ danielle.cascerceri@gilead.com
+--------------------------
+firstname.lastname Listed first on ../../patterns.txt
+Checking: 5
+Tom Julian
+Email[5] == Tom Julian 
+-------------------------
+Exception:  Refresh problem
+ID Value is :::: 51
+Email[5] == Tom Julian 
+-------------------------
+Email Found[5] ~ None
+--------------------------
+None Listed first on ../../patterns.txt
+Checking: 6
+Anita J
+Email[6] == Anita J 
+-------------------------
+Email Found[6] ~ anita@gilead.com
+--------------------------
+firstname Listed first on ../../patterns.txt
+Checking: 7
+Edward J
+Email[7] == Edward J 
+-------------------------
+Email Found[7] ~ edward.j@gilead.com
+--------------------------
+firstname.lastinitial Listed first on ../../patterns.txt
+Checking: 8
+Partha Baral
+Email[8] == Partha Baral 
+-------------------------
+Email Found[8] ~ partha.baral@gilead.com
+--------------------------
+firstname.lastname Listed first on ../../patterns.txt
+Checking: 9
+Thomas Abalos
+Email[9] == Thomas Abalos 
+-------------------------
+Email Found[9] ~ thomas.abalos@gilead.com
+--------------------------
+firstname.lastname Listed first on ../../patterns.txt
+Checking: 10
+Stu Dorman
+Email[10] == Stu Dorman 
+-------------------------
+Email Found[10] ~ stu.dorman@gilead.com
+--------------------------
+firstname.lastname Listed first on ../../patterns.txt
+Checking: 11
+Kursad Sen
+Email[11] == Kursad Sen 
+-------------------------
+Email Found[11] ~ kursad.sen@gilead.com
+--------------------------
+firstname.lastname Listed first on ../../patterns.txt
+Checking: 12
+Siddhartha Roychoudhury
+Email[12] == Siddhartha Roychoudhury 
+-------------------------
+Email Found[12] ~ sroychoudhury@gilead.com
+--------------------------
+firstinitiallastname Listed first on ../../patterns.txt
+:::::Company Pattern List Not Found:::::
+Exception:  string indices must be integers Gilead Sciences
+Checking: 13
+Sophia Wang
+Email[13] == Sophia Wang 
+-------------------------
+Email Found[13] ~ None
+--------------------------
+None Listed first on ../../patterns.txt
+Checking: 14
+Rachel Kerman
+Email[14] == Rachel Kerman 
+-------------------------
+Email Found[14] ~ kerman.rachel@gilead.com
+--------------------------
+lastname.firstname Listed first on ../../patterns.txt
+Checking: 15
+Ryan S
+Email[15] == Ryan S 
+-------------------------
+Email Found[15] ~ rs@gilead.com
+--------------------------
+firstinitiallastinitial Listed first on ../../patterns.txt
+Checking: 16
+Manu Kittanakere
+Email[16] == Manu Kittanakere 
+-------------------------
+Email Found[16] ~ mkittanakere@gilead.com
+--------------------------
+firstinitiallastname Listed first on ../../patterns.txt
+Checking: 17
+Lei Chen
+Email[17] == Lei Chen 
+-------------------------
+Email Found[17] ~ lei@gilead.com
+--------------------------
+firstname Listed first on ../../patterns.txt
+Checking: 18
+Marta B
+Email[18] == Marta B 
+-------------------------
+Email Found[18] ~ mb@gilead.com
+--------------------------
+firstinitiallastinitial Listed first on ../../patterns.txt
+Checking: 19
+Jules Anderson
+Email[19] == Jules Anderson 
+-------------------------
+Email Found[19] ~ anderson.jules@gilead.com
+--------------------------
+lastname.firstname Listed first on ../../patterns.txt
+Checking: 20
+André Antonelli
+Email[20] == André Antonelli 
+-------------------------
+Email Found[20] ~ aantonelli@gilead.com
+--------------------------
+firstinitiallastname Listed first on ../../patterns.txt
+Checking: 21
+Caitriona O'Brien
+Email[21] == Caitriona O'Brien 
+-------------------------
+2023-09-07
+File not found
+Checking: 3
+Patrick Viret
+Email[3] == Patrick Viret 
+-------------------------
+2023-09-07
+File not found
+Checking: 3
+Patrick Viret
+Email[3] == Patrick Viret 
+-------------------------
+Email Found[3] ~ patrick.viret@syneoshealth.com
+--------------------------
+firstname.lastname Listed first on ../../patterns.txt
+Checking: 9
+Rachel Newport
+Email[9] == Rachel Newport 
+-------------------------

@@ -1,0 +1,979 @@
+################################################################################
+Company Name ::::  Tribune Publishing
+File not found
+Checking: 39
+Liberty "Libby"
+Email[39] == Liberty "Libby" 
+-------------------------
+Email Found[39] ~ None
+--------------------------
+Checking: 185
+Patricia 
+Email[185] == Patricia  
+-------------------------
+argument of type 'Exception' is not iterable
+################################################################################
+Company Name ::::  Instaread
+File not found
+Checking: 3
+Alex Henry
+Email[3] == Alex Henry 
+-------------------------
+Email Found[3] ~ None
+--------------------------
+Checking: 4
+Samuel Harris
+Email[4] == Samuel Harris 
+-------------------------
+Email Found[4] ~ None
+--------------------------
+Checking: 5
+Anthony Gemayel
+Email[5] == Anthony Gemayel 
+-------------------------
+Email Found[5] ~ None
+--------------------------
+Checking: 6
+Helen Greene
+Email[6] == Helen Greene 
+-------------------------
+Email Found[6] ~ None
+--------------------------
+Checking: 7
+BONITA Brown
+Email[7] == BONITA Brown 
+-------------------------
+Email Found[7] ~ None
+--------------------------
+Checking: 8
+Effie Walker
+Email[8] == Effie Walker 
+-------------------------
+Email Found[8] ~ None
+--------------------------
+Checking: 9
+Jessica Hendery
+Email[9] == Jessica Hendery 
+-------------------------
+Email Found[9] ~ None
+--------------------------
+Checking: 13
+Marnye Young
+Email[13] == Marnye Young 
+-------------------------
+Email Found[13] ~ None
+--------------------------
+Checking: 14
+Fazal Amin
+Email[14] == Fazal Amin 
+-------------------------
+Email Found[14] ~ None
+--------------------------
+Item with highest value: None
+################################################################################
+Company Name ::::  Mynet
+File not found
+Checking: 17
+önder cülcüloğlu
+Email[17] == önder cülcüloğlu 
+-------------------------
+Email Found[17] ~ None
+--------------------------
+Checking: 42
+Şemsettin İNCE
+Email[42] == Şemsettin İNCE 
+-------------------------
+Email Found[42] ~ None
+--------------------------
+Checking: 49
+önder baş
+Email[49] == önder baş 
+-------------------------
+Email Found[49] ~ None
+--------------------------
+Checking: 80
+şevket bölükbaş
+Email[80] == şevket bölükbaş 
+-------------------------
+Email Found[80] ~ None
+--------------------------
+Checking: 100
+ÖZCAN KİRİŞ
+Email[100] == ÖZCAN KİRİŞ 
+-------------------------
+Email Found[100] ~ None
+--------------------------
+Checking: 105
+GÖKÇEN ŞENYİĞİT
+Email[105] == GÖKÇEN ŞENYİĞİT 
+-------------------------
+Email Found[105] ~ None
+--------------------------
+Checking: 112
+İsmail Zilcioğlu
+Email[112] == İsmail Zilcioğlu 
+-------------------------
+Email Found[112] ~ None
+--------------------------
+Checking: 135
+Kürşat Çiçek
+Email[135] == Kürşat Çiçek 
+-------------------------
+Email Found[135] ~ None
+--------------------------
+Checking: 136
+Şerafettin Gültekin
+Email[136] == Şerafettin Gültekin 
+-------------------------
+Email Found[136] ~ None
+--------------------------
+Checking: 159
+Nilgün Ö
+Email[159] == Nilgün Ö 
+-------------------------
+Email Found[159] ~ None
+--------------------------
+Checking: 173
+İsmail Bülent
+Email[173] == İsmail Bülent 
+-------------------------
+Email Found[173] ~ None
+--------------------------
+Checking: 199
+gülçin özizmirliler
+Email[199] == gülçin özizmirliler 
+-------------------------
+Email Found[199] ~ None
+--------------------------
+Checking: 237
+İLKE TÜMER
+Email[237] == İLKE TÜMER 
+-------------------------
+Email Found[237] ~ None
+--------------------------
+Checking: 238
+NADİRE İMRAK
+Email[238] == NADİRE İMRAK 
+-------------------------
+Email Found[238] ~ None
+--------------------------
+Checking: 260
+ÖNDER ŞAHİN
+Email[260] == ÖNDER ŞAHİN 
+-------------------------
+Email Found[260] ~ None
+--------------------------
+Checking: 266
+Şaban Doğan
+Email[266] == Şaban Doğan 
+-------------------------
+Email Found[266] ~ None
+--------------------------
+Checking: 281
+Gökhan ÇİVREKOĞLU
+Email[281] == Gökhan ÇİVREKOĞLU 
+-------------------------
+Email Found[281] ~ None
+--------------------------
+Checking: 313
+MUSTAFA ÇATAL
+Email[313] == MUSTAFA ÇATAL 
+-------------------------
+Email Found[313] ~ None
+--------------------------
+Checking: 315
+derya özlem
+Email[315] == derya özlem 
+-------------------------
+Email Found[315] ~ None
+--------------------------
+Checking: 324
+Aysel Ünlü
+Email[324] == Aysel Ünlü 
+-------------------------
+Email Found[324] ~ None
+--------------------------
+Checking: 325
+Özdemir Hanife
+Email[325] == Özdemir Hanife 
+-------------------------
+Email Found[325] ~ None
+--------------------------
+Checking: 327
+necmi tatlı
+Email[327] == necmi tatlı 
+-------------------------
+Email Found[327] ~ None
+--------------------------
+Checking: 329
+Özge Serli
+Email[329] == Özge Serli 
+-------------------------
+Email Found[329] ~ None
+--------------------------
+Checking: 330
+HACI YILMAZ
+Email[330] == HACI YILMAZ 
+-------------------------
+Email Found[330] ~ None
+--------------------------
+Checking: 331
+Ismail Eyiceoğlu
+Email[331] == Ismail Eyiceoğlu 
+-------------------------
+Email Found[331] ~ None
+--------------------------
+Checking: 332
+Burak Şen
+Email[332] == Burak Şen 
+-------------------------
+Email Found[332] ~ None
+--------------------------
+Checking: 333
+AHMET ŞENTÜRK
+Email[333] == AHMET ŞENTÜRK 
+-------------------------
+Email Found[333] ~ None
+--------------------------
+Checking: 334
+ceyhan çiçek
+Email[334] == ceyhan çiçek 
+-------------------------
+Email Found[334] ~ None
+--------------------------
+Checking: 335
+Bülent Kutluca
+Email[335] == Bülent Kutluca 
+-------------------------
+Email Found[335] ~ None
+--------------------------
+Checking: 336
+FİLİZ ÇİZMECİOĞLU
+Email[336] == FİLİZ ÇİZMECİOĞLU 
+-------------------------
+Email Found[336] ~ None
+--------------------------
+Checking: 337
+Elçin Akça
+Email[337] == Elçin Akça 
+-------------------------
+Email Found[337] ~ None
+--------------------------
+Checking: 339
+MUHSİN ÖZYAŞAR
+Email[339] == MUHSİN ÖZYAŞAR 
+-------------------------
+Email Found[339] ~ None
+--------------------------
+Checking: 340
+mustafa yıldız
+Email[340] == mustafa yıldız 
+-------------------------
+Email Found[340] ~ None
+--------------------------
+Checking: 341
+TUNCAY KESKİN
+Email[341] == TUNCAY KESKİN 
+-------------------------
+Email Found[341] ~ None
+--------------------------
+Checking: 342
+Mehmet Dogansoy
+Email[342] == Mehmet Dogansoy 
+-------------------------
+Email Found[342] ~ None
+--------------------------
+Checking: 343
+lütfi agen
+Email[343] == lütfi agen 
+-------------------------
+Email Found[343] ~ None
+--------------------------
+Checking: 344
+Kalender Aslan
+Email[344] == Kalender Aslan 
+-------------------------
+Email Found[344] ~ None
+--------------------------
+Checking: 345
+ali inanc
+Email[345] == ali inanc 
+-------------------------
+Email Found[345] ~ None
+--------------------------
+Checking: 346
+ss sss
+Email[346] == ss sss 
+-------------------------
+Email Found[346] ~ None
+--------------------------
+Checking: 347
+rukiye arslan
+Email[347] == rukiye arslan 
+-------------------------
+Email Found[347] ~ None
+--------------------------
+Checking: 348
+Hasan Gülenç
+Email[348] == Hasan Gülenç 
+-------------------------
+******** Daily Limit Reached for ID: 20 ********
+Email Found[348] ~ None
+--------------------------
+Checking: 349
+HALIL UCAR
+Email[349] == HALIL UCAR 
+-------------------------
+Email Found[349] ~ None
+--------------------------
+Checking: 350
+Kamile Kayıkcı
+Email[350] == Kamile Kayıkcı 
+-------------------------
+Email Found[350] ~ None
+--------------------------
+Checking: 351
+Meryem İlke
+Email[351] == Meryem İlke 
+-------------------------
+Email Found[351] ~ None
+--------------------------
+Checking: 352
+Ömer Bey
+Email[352] == Ömer Bey 
+-------------------------
+Email Found[352] ~ None
+--------------------------
+Checking: 353
+Erhan Unal
+Email[353] == Erhan Unal 
+-------------------------
+Email Found[353] ~ None
+--------------------------
+Checking: 354
+mehmet çelik
+Email[354] == mehmet çelik 
+-------------------------
+Email Found[354] ~ None
+--------------------------
+Checking: 355
+ayşen atasever
+Email[355] == ayşen atasever 
+-------------------------
+Email Found[355] ~ None
+--------------------------
+Checking: 356
+Erhan Ozyol
+Email[356] == Erhan Ozyol 
+-------------------------
+Email Found[356] ~ None
+--------------------------
+Checking: 357
+Gürbüz Atalay
+Email[357] == Gürbüz Atalay 
+-------------------------
+Email Found[357] ~ None
+--------------------------
+Checking: 358
+İlhan Zeytun
+Email[358] == İlhan Zeytun 
+-------------------------
+Email Found[358] ~ None
+--------------------------
+Checking: 359
+Nilüfer Sülen
+Email[359] == Nilüfer Sülen 
+-------------------------
+Email Found[359] ~ None
+--------------------------
+Checking: 360
+sadasd S
+Email[360] == sadasd S 
+-------------------------
+Email Found[360] ~ None
+--------------------------
+Checking: 361
+ramazan armut
+Email[361] == ramazan armut 
+-------------------------
+Email Found[361] ~ None
+--------------------------
+Checking: 362
+murat çelik
+Email[362] == murat çelik 
+-------------------------
+Email Found[362] ~ None
+--------------------------
+Checking: 363
+Özer Şükrü
+Email[363] == Özer Şükrü 
+-------------------------
+Email Found[363] ~ None
+--------------------------
+Checking: 364
+Smurer urer
+Email[364] == Smurer urer 
+-------------------------
+Email Found[364] ~ None
+--------------------------
+Checking: 365
+Truvam truvam
+Email[365] == Truvam truvam 
+-------------------------
+Email Found[365] ~ None
+--------------------------
+Checking: 366
+Fatma Duksal
+Email[366] == Fatma Duksal 
+-------------------------
+Email Found[366] ~ None
+--------------------------
+Checking: 367
+TENZİRE AKTÜRK
+Email[367] == TENZİRE AKTÜRK 
+-------------------------
+Email Found[367] ~ None
+--------------------------
+Checking: 368
+aydın ayna
+Email[368] == aydın ayna 
+-------------------------
+Email Found[368] ~ None
+--------------------------
+Checking: 369
+ozzy izmir
+Email[369] == ozzy izmir 
+-------------------------
+Email Found[369] ~ None
+--------------------------
+Checking: 370
+Siyah Beyaz
+Email[370] == Siyah Beyaz 
+-------------------------
+Email Found[370] ~ None
+--------------------------
+Checking: 371
+arif kara
+Email[371] == arif kara 
+-------------------------
+Email Found[371] ~ None
+--------------------------
+Checking: 372
+Chk Yasemin
+Email[372] == Chk Yasemin 
+-------------------------
+Email Found[372] ~ None
+--------------------------
+Checking: 373
+DizilerFilmler Net
+Email[373] == DizilerFilmler Net 
+-------------------------
+Email Found[373] ~ None
+--------------------------
+Checking: 374
+nurcan erdil
+Email[374] == nurcan erdil 
+-------------------------
+Email Found[374] ~ None
+--------------------------
+Checking: 375
+TARIK TEMUR
+Email[375] == TARIK TEMUR 
+-------------------------
+Email Found[375] ~ None
+--------------------------
+Checking: 376
+Uğur Karaoğlan
+Email[376] == Uğur Karaoğlan 
+-------------------------
+Email Found[376] ~ None
+--------------------------
+Checking: 377
+By Prof
+Email[377] == By Prof 
+-------------------------
+Email Found[377] ~ None
+--------------------------
+Checking: 378
+haluk daricioglu
+Email[378] == haluk daricioglu 
+-------------------------
+Email Found[378] ~ None
+--------------------------
+Checking: 379
+Izzettin Kaplanoglu
+Email[379] == Izzettin Kaplanoglu 
+-------------------------
+Email Found[379] ~ None
+--------------------------
+Checking: 380
+Drerman Ulu
+Email[380] == Drerman Ulu 
+-------------------------
+Email Found[380] ~ None
+--------------------------
+Checking: 381
+ORKİDE AKSOY
+Email[381] == ORKİDE AKSOY 
+-------------------------
+Email Found[381] ~ None
+--------------------------
+Checking: 382
+Alaattin Eyikoçak
+Email[382] == Alaattin Eyikoçak 
+-------------------------
+Email Found[382] ~ None
+--------------------------
+Checking: 383
+Hüseyin Kamil
+Email[383] == Hüseyin Kamil 
+-------------------------
+Email Found[383] ~ None
+--------------------------
+Checking: 384
+Sadik Uluyol
+Email[384] == Sadik Uluyol 
+-------------------------
+Email Found[384] ~ None
+--------------------------
+Checking: 385
+Demir Sever
+Email[385] == Demir Sever 
+-------------------------
+Email Found[385] ~ None
+--------------------------
+Checking: 386
+Bahar Güldaş
+Email[386] == Bahar Güldaş 
+-------------------------
+Email Found[386] ~ None
+--------------------------
+Checking: 387
+mehmet canitatli
+Email[387] == mehmet canitatli 
+-------------------------
+Email Found[387] ~ None
+--------------------------
+Checking: 388
+GizemSalman79 saygılı
+Email[388] == GizemSalman79 saygılı 
+-------------------------
+Email Found[388] ~ None
+--------------------------
+Checking: 389
+Veysel Malkoç
+Email[389] == Veysel Malkoç 
+-------------------------
+Email Found[389] ~ None
+--------------------------
+Checking: 390
+Ebruhan karayandı
+Email[390] == Ebruhan karayandı 
+-------------------------
+Email Found[390] ~ None
+--------------------------
+Checking: 391
+gazi dörücü
+Email[391] == gazi dörücü 
+-------------------------
+Email Found[391] ~ None
+--------------------------
+Checking: 392
+tugba gur
+Email[392] == tugba gur 
+-------------------------
+Email Found[392] ~ None
+--------------------------
+Checking: 393
+ErsalYücel Ersaly
+Email[393] == ErsalYücel Ersaly 
+-------------------------
+Email Found[393] ~ None
+--------------------------
+Checking: 394
+AvUmut Mutlu
+Email[394] == AvUmut Mutlu 
+-------------------------
+Email Found[394] ~ None
+--------------------------
+Checking: 395
+Ayşe Ebru
+Email[395] == Ayşe Ebru 
+-------------------------
+Email Found[395] ~ None
+--------------------------
+Checking: 396
+Altan Günaydın
+Email[396] == Altan Günaydın 
+-------------------------
+Email Found[396] ~ None
+--------------------------
+Checking: 397
+Necmisim Şimşek
+Email[397] == Necmisim Şimşek 
+-------------------------
+Email Found[397] ~ None
+--------------------------
+Checking: 398
+SERPİL SERİN
+Email[398] == SERPİL SERİN 
+-------------------------
+Email Found[398] ~ None
+--------------------------
+Checking: 399
+Nuray Aslan
+Email[399] == Nuray Aslan 
+-------------------------
+******** Daily Limit Reached for ID: 21 ********
+Email Found[399] ~ None
+--------------------------
+Checking: 400
+Rasim Altop
+Email[400] == Rasim Altop 
+-------------------------
+Email Found[400] ~ None
+--------------------------
+Checking: 401
+doğan söğütlü
+Email[401] == doğan söğütlü 
+-------------------------
+Email Found[401] ~ None
+--------------------------
+Checking: 402
+Ayhan Tırıç
+Email[402] == Ayhan Tırıç 
+-------------------------
+Email Found[402] ~ None
+--------------------------
+Checking: 403
+zeynep koçak
+Email[403] == zeynep koçak 
+-------------------------
+Email Found[403] ~ None
+--------------------------
+Checking: 404
+ömer saraç
+Email[404] == ömer saraç 
+-------------------------
+Email Found[404] ~ None
+--------------------------
+Checking: 405
+renan aydınoğlu
+Email[405] == renan aydınoğlu 
+-------------------------
+Email Found[405] ~ None
+--------------------------
+Checking: 406
+Karadeniz Hastanesi
+Email[406] == Karadeniz Hastanesi 
+-------------------------
+Email Found[406] ~ None
+--------------------------
+Checking: 407
+Deniz Kural
+Email[407] == Deniz Kural 
+-------------------------
+Email Found[407] ~ None
+--------------------------
+Checking: 408
+NALAN Işitan
+Email[408] == NALAN Işitan 
+-------------------------
+Email Found[408] ~ None
+--------------------------
+Checking: 409
+Hatice Eğilmez
+Email[409] == Hatice Eğilmez 
+-------------------------
+Email Found[409] ~ None
+--------------------------
+Checking: 410
+hüsnü ürkmez
+Email[410] == hüsnü ürkmez 
+-------------------------
+Email Found[410] ~ None
+--------------------------
+Checking: 411
+Barlas Evliyaoğlu
+Email[411] == Barlas Evliyaoğlu 
+-------------------------
+Email Found[411] ~ None
+--------------------------
+Checking: 412
+Yigit Özmen
+Email[412] == Yigit Özmen 
+-------------------------
+Email Found[412] ~ None
+--------------------------
+Checking: 413
+Nedim Demirel
+Email[413] == Nedim Demirel 
+-------------------------
+Email Found[413] ~ None
+--------------------------
+Checking: 414
+Cengiz Şen
+Email[414] == Cengiz Şen 
+-------------------------
+Email Found[414] ~ None
+--------------------------
+Checking: 415
+cemal doğan
+Email[415] == cemal doğan 
+-------------------------
+Email Found[415] ~ None
+--------------------------
+Checking: 416
+Salih Narin
+Email[416] == Salih Narin 
+-------------------------
+Email Found[416] ~ None
+--------------------------
+Checking: 417
+serdar ucar
+Email[417] == serdar ucar 
+-------------------------
+Email Found[417] ~ None
+--------------------------
+Checking: 418
+Adnan Yiglimci
+Email[418] == Adnan Yiglimci 
+-------------------------
+Email Found[418] ~ None
+--------------------------
+Checking: 419
+TUĞBA NUR
+Email[419] == TUĞBA NUR 
+-------------------------
+Email Found[419] ~ None
+--------------------------
+Checking: 420
+binnaz çelik
+Email[420] == binnaz çelik 
+-------------------------
+Email Found[420] ~ None
+--------------------------
+Checking: 421
+murat erdoğan
+Email[421] == murat erdoğan 
+-------------------------
+Email Found[421] ~ None
+--------------------------
+Checking: 422
+Haldun Kotan
+Email[422] == Haldun Kotan 
+-------------------------
+Email Found[422] ~ None
+--------------------------
+Checking: 423
+Mustafa Gün
+Email[423] == Mustafa Gün 
+-------------------------
+Email Found[423] ~ None
+--------------------------
+Checking: 424
+can akdemir
+Email[424] == can akdemir 
+-------------------------
+Email Found[424] ~ None
+--------------------------
+Checking: 425
+Afife Şafak
+Email[425] == Afife Şafak 
+-------------------------
+Email Found[425] ~ None
+--------------------------
+Checking: 426
+zafer parlak
+Email[426] == zafer parlak 
+-------------------------
+Email Found[426] ~ None
+--------------------------
+Checking: 427
+ramazan tutkun
+Email[427] == ramazan tutkun 
+-------------------------
+Email Found[427] ~ None
+--------------------------
+Checking: 428
+Mert koray
+Email[428] == Mert koray 
+-------------------------
+Email Found[428] ~ None
+--------------------------
+Checking: 429
+selma bingöl
+Email[429] == selma bingöl 
+-------------------------
+Email Found[429] ~ None
+--------------------------
+Checking: 430
+zekerya şahin
+Email[430] == zekerya şahin 
+-------------------------
+Email Found[430] ~ None
+--------------------------
+Checking: 431
+Hacikilicarslan kılıçarslan
+Email[431] == Hacikilicarslan kılıçarslan 
+-------------------------
+Email Found[431] ~ None
+--------------------------
+Checking: 432
+İsmail Murat
+Email[432] == İsmail Murat 
+-------------------------
+Email Found[432] ~ None
+--------------------------
+Checking: 433
+sezer yıldız
+Email[433] == sezer yıldız 
+-------------------------
+Email Found[433] ~ None
+--------------------------
+Checking: 434
+NURŞEN ÇAKIR
+Email[434] == NURŞEN ÇAKIR 
+-------------------------
+Email Found[434] ~ None
+--------------------------
+Checking: 435
+Seref Koç
+Email[435] == Seref Koç 
+-------------------------
+Email Found[435] ~ None
+--------------------------
+Checking: 436
+Ertan ÇELİK
+Email[436] == Ertan ÇELİK 
+-------------------------
+Email Found[436] ~ None
+--------------------------
+Checking: 437
+MUSTAFA ŞENTÜRK
+Email[437] == MUSTAFA ŞENTÜRK 
+-------------------------
+Email Found[437] ~ None
+--------------------------
+Checking: 438
+Bulent Altinok
+Email[438] == Bulent Altinok 
+-------------------------
+Email Found[438] ~ None
+--------------------------
+Checking: 439
+Şefik Kezer
+Email[439] == Şefik Kezer 
+-------------------------
+Email Found[439] ~ None
+--------------------------
+Checking: 440
+beyhan erzan
+Email[440] == beyhan erzan 
+-------------------------
+Email Found[440] ~ None
+--------------------------
+Checking: 441
+Ferhan Özdemi̇R
+Email[441] == Ferhan Özdemi̇R 
+-------------------------
+Email Found[441] ~ None
+--------------------------
+Checking: 442
+arzu sancar
+Email[442] == arzu sancar 
+-------------------------
+################################################################################
+Company Name ::::  NF3
+File not found
+Checking: 3
+Yot 
+Email[3] == Yot  
+-------------------------
+argument of type 'Exception' is not iterable
+################################################################################
+Company Name ::::  DanAds
+File not found
+Checking: 16
+Jonas Linnér
+Email[16] == Jonas Linnér 
+-------------------------
+Email Found[16] ~ None
+--------------------------
+Checking: 21
+Łukasz Szymczak
+Email[21] == Łukasz Szymczak 
+-------------------------
+################################################################################
+Company Name ::::  Canva
+File not found
+Checking: 7
+Dominik Schäfer
+Email[7] == Dominik Schäfer 
+-------------------------
+Email Found[7] ~ None
+--------------------------
+Checking: 110
+Céline Rufener
+Email[110] == Céline Rufener 
+-------------------------
+Email Found[110] ~ None
+--------------------------
+Checking: 153
+René Leistikow
+Email[153] == René Leistikow 
+-------------------------
+Email Found[153] ~ None
+--------------------------
+Checking: 260
+Joël Kalmanowicz
+Email[260] == Joël Kalmanowicz 
+-------------------------
+Email Found[260] ~ None
+--------------------------
+Checking: 262
+Mário Areias
+Email[262] == Mário Areias 
+-------------------------
+Email Found[262] ~ None
+--------------------------
+Checking: 325
+Çağlar Uğur
+Email[325] == Çağlar Uğur 
+-------------------------
+Email Found[325] ~ None
+--------------------------
+Checking: 336
+Soumyadeep Chowdhury
+Email[336] == Soumyadeep Chowdhury 
+-------------------------
+Email Found[336] ~ None
+--------------------------
+Checking: 338
+Tom Perfrement
+Email[338] == Tom Perfrement 
+-------------------------
+Email Found[338] ~ None
+--------------------------
+Checking: 340
+Joshua Smith
+Email[340] == Joshua Smith 
+-------------------------
+Email Found[340] ~ None
+--------------------------
+Checking: 343
+Girish Darda
+Email[343] == Girish Darda 
+-------------------------
+Email Found[343] ~ None
+--------------------------
+Checking: 344
+Arveen Azurin
+Email[344] == Arveen Azurin 
+-------------------------
+Email Found[344] ~ None
+--------------------------
+Checking: 345
+Anne Hoang
+Email[345] == Anne Hoang 
+-------------------------

@@ -12,10 +12,20 @@ import time
 
 ID_COUNTER = dict()
 
+def add(x:int):
+    try:
+        file = open("counter.txt", "r")
+        num = int(file.read().split("\n")[0])
+        num += x
+    except Exception as E:
+        num = x
+    print(num, file=open("counter.txt", "w"))
+
 def printf(*args):
     print(*args, file=open("All_Print_Logs.txt", "a"))
 
 def verifying2(recipient_email, id_num):
+
     to = recipient_email
     subject = "Test email"
     message_text = "This is a test email."
@@ -51,7 +61,7 @@ def verifying2(recipient_email, id_num):
         printf("___> ", E)
         return False
     
-    
+    add(1)
     sleep(0.1)
     knkt = receive(recipient_email, 11, id_num)
     return knkt
