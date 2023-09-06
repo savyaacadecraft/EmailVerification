@@ -240,8 +240,7 @@ if __name__ == "__main__":
         printf("Company Name :::: ", company["Company"])
         try:
             ptrn_found = CompanyEmailPatrn(Company=company["Company"], start_id=idnum)
-            if not ptrn_found:
-                print("Company: ", company["Company"], sep=", ", file=open("Pattern_Not_Found.csv", "a"))
+            
             
         except Exception as E:
             printf(E)
