@@ -214,8 +214,6 @@ def CompanyEmailPatrn(Company, start_id, pattern=None):
 
 if __name__ == "__main__":
 
-    Company_list = get_file_data("Company_List.txt")
-
     idnum = 20
     ID_MAX = 40
 
@@ -224,14 +222,7 @@ if __name__ == "__main__":
     companies = collection.find({"data_dict.Verification": "pending"}, {"Company":1})
     
     for company in companies:
-
-        if company["Company"] in Company_list:
-            continue
-        else: 
-            print(company["Company"], file=open("Company_List.txt", "a"))
-            Company_list = get_file_data("Company_List.txt")
-
-        
+       
         if idnum > ID_MAX:
             exit("......Credential ID above 30 don't exist......")
 
