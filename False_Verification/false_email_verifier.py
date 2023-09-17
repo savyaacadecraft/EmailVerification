@@ -35,13 +35,13 @@ def printf(*args):
     print(*args, file=open("All_False_Logs.txt", "a"))
 
 def get_file_data(file_name):
-    Company_list = list()
+    data_list = list()
 
     with open(file_name, "r") as file:
         for line in file:
-            Company_list.append(line.split("\n")[0])
+            data_list.append(line.split("\n")[0])
     
-    return Company_list
+    return data_list
 
 def patternCatcher(Company):
     if exists(f'Companies/{Company}.csv'):
@@ -124,7 +124,7 @@ def CompanyEmailPatrn(Company, start_id, condition=False, pattern=None):
             patternSuc = {}
         
         Emails = []
-        data = collection.find_one({"Company": Company,}, {"Domain": 1, "data_dict": 1})
+        data = collection.find_one({"Company": Company}, {"Domain": 1, "data_dict": 1})
 
         for i in data["data_dict"]:
 

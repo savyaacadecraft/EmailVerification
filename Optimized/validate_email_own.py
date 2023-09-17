@@ -58,7 +58,12 @@ def verifying2(recipient_email, id_num):
         return False
     
     except Exception as E:
-        printf("___> ", E)
+
+        if 'invalid_grant: Bad Request' in str(E):
+            printf("400 :::: ", to)
+
+        else:
+            printf("___> ", E)
         return False
     
     add(1)
@@ -150,15 +155,20 @@ def PatternCheck(full_name, domain,_idnum, pattern_list=None):
     name = full_name.split(" ")[0]
     last = full_name.split(" ")[1]
 
+  
     if "//" in domain:
         domain = ".".join(" ".join(domain.split("//")[1:]).replace("/","").replace("www.","").replace("-", "").split(".")[0:2])
     else:
         domain = domain.replace("www.","").replace("-", "").replace("/", "")
 
+
+
     if pattern_list:
         for i in pattern_list:
             try:
                 ptrn = i.replace('firstname', name).replace('lastname', last).replace('firstinitial', name[0]).replace('lastinitial', last[0]).lower()
+                ptrn = ptrn.replace("(", "").replace(")", "").replace("..", ".")
+
                 email = f'{ptrn}@{domain}'
 
                 if _idnum not in ID_COUNTER.keys(): ID_COUNTER[_idnum] = 1

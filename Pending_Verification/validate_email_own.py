@@ -49,15 +49,14 @@ def verifying2(recipient_email, id_num):
     try:
         service = build('gmail', 'v1', credentials=creds)
         raw_msg = base64.urlsafe_b64encode(msg.as_bytes()).decode('utf-8')
-        send_message = service.users().messages().send(userId='me', body={'raw': raw_msg}).execute()
+        service.users().messages().send(userId='me', body={'raw': raw_msg}).execute()
 
     except HttpError as error:
-        send_message = None
-        printf("---", error)
+        printf("HTTP Error --",error.error_details[0]["message"])
         return False
     
     except Exception as E:
-        printf("___> ", E)
+        printf("---> ", E)
         return False
     
     add(1)
@@ -168,7 +167,7 @@ def PatternCheck(full_name, domain,_idnum, pattern_list=None):
                     return (i, email, ID_COUNTER[_idnum])
 
             except Exception as e:
-                printf('[validate email ({})] :::: '.format(sys.exc_info()[-1].tb_lineno), type(e).__name__, e)
+                printf(f'[validate email ({sys.exc_info()[-1].tb_lineno})] :::: ', type(e).__name__, e,)
                 raise Exception("Refresh problem")
         
         print(ID_COUNTER, file=open("credentials_log.txt", "w"))
@@ -187,7 +186,8 @@ def PatternCheck(full_name, domain,_idnum, pattern_list=None):
                     return (getVars(i), email, ID_COUNTER[_idnum])
                 
             except Exception as e:
-                printf('[validate email ({})] :::: '.format(sys.exc_info()[-1].tb_lineno), type(e).__name__, e)
+                printf("Exception ::::", e)
+                printf(f'[validate email ({sys.exc_info()[-1].tb_lineno})] :::: ', type(e).__name__)
                 raise Exception("Refresh problem")
         
         print(ID_COUNTER, file=open("credentials_log.txt", "w"))
@@ -198,5 +198,5 @@ def PatternCheck(full_name, domain,_idnum, pattern_list=None):
 if __name__ == "__main__":
     # if verifying2('priyamtomar133@gmail.com',24) == True:
     #     printf('YES')
-    PatternCheck("savya sachi","acadecraft.net/", 30)
+    PatternCheck("Rafael Lässer","https://www.viatris.com/en", 30)
     # PatternCheck("Miguel Alonso", "webedia-group.com/", 17)

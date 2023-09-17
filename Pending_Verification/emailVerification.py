@@ -11,237 +11,202 @@ from os import system
 from datetime import datetime, timedelta
 
 
-DAILY_LIMIT = 800
+class PendingVerification:
 
-username = "manojtomar326"
-password = "Tomar@@##123"
-cluster_url = "cluster0.ldghyxl.mongodb.net"
-
-# Encode the username and password using quote_plus()
-encoded_username = quote_plus(username)
-encoded_password = quote_plus(password)
-
-# Create the MongoDB Atlas connection string with the encoded credentials
-connection_string = f"mongodb+srv://{encoded_username}:{encoded_password}@{cluster_url}/test?retryWrites=true&w=majority"
-
-# Connect to MongoDB Atlas
-client = MongoClient(connection_string)
-
-# Query all documents in the collection
-db = client['mydatabase']
-collection = db['my_collection']
-
-idnum = None
-ID_MAX = None
-
-def printf(*args):
-    print(*args, file=open("All_Pending_Logs.txt", "a"))
-
-def update_pattern_list(ptrn):
-   
-    with open("patterns.txt", "r") as file:
-        patterns = file.readlines()
-
-    patterns = [pattern.strip() for pattern in patterns]
-
-    if ptrn in patterns:
-        patterns.remove(ptrn)
-        patterns.insert(0, ptrn)
-
-    with open("patterns.txt", "w") as file:
-        for pattern in patterns:
-            file.write( pattern + "\n")
-
-def patternCatcher(Company):
-    if exists(f'../Companies/{Company}.csv'):
-        with open(f'{Company}.csv','r',encoding='utf-8') as f:
-            first_line = f.readlines()[1]
-            
-    # Convert the string to a dictionary
-            dictionary = ast.literal_eval(first_line)
-
-            # Access and work with the dictionary
-            printf(dictionary)
-            return dictionary
-    else:
-        printf("File not found")
-        return dict()
-    
-def get_file_data(file_name):
-    Company_list = list()
-
-    if exists(file_name):
-        with open(file_name, "r") as file:
-            for line in file:
-                Company_list.append(line.split("\n")[0])
-    
-        return Company_list
-    else:
-        system(f"touch {file_name}")
-        return Company_list
-
-def CompanyEmailPatrn(Company, start_id, pattern=None):
-    global idnum, ID_MAX
-
-    Company_Bool = False
-    try:
-        idnum = start_id
-        correctness = {"correct": 0, "incorrect": 0}
+    def __init__(self, start_id, last_id) -> None:
         
+        self.DAILY_LIMIT = 1000
 
+        username = "manojtomar326"
+        password = "Tomar@@##123"
+        cluster_url = "cluster0.ldghyxl.mongodb.net"
+
+        # Encode the username and password using quote_plus()
+        encoded_username = quote_plus(username)
+        encoded_password = quote_plus(password)
+
+        # Create the MongoDB Atlas connection string with the encoded credentials
+        connection_string = f"mongodb+srv://{encoded_username}:{encoded_password}@{cluster_url}/test?retryWrites=true&w=majority"
+
+        # Connect to MongoDB Atlas
+        client = MongoClient(connection_string)
+
+        # Query all documents in the collection
+        db = client['mydatabase']
+        self.collection = db['my_collection']
+
+        self.idnum = start_id
+        self.ID_MAX = last_id
+
+    def printf(self, *args):
+        print(*args, file=open("All_Pending_Logs.txt", "a"))
+
+    def update_pattern_list(self, ptrn):
+    
+        with open("patterns.txt", "r") as file:
+            patterns = file.readlines()
+
+        patterns = [pattern.strip() for pattern in patterns]
+
+        if ptrn in patterns:
+            patterns.remove(ptrn)
+            patterns.insert(0, ptrn)
+
+        with open("patterns.txt", "w") as file:
+            for pattern in patterns:
+                file.write( pattern + "\n")
+
+    def patternCatcher(self, Company):
+        if exists(f'../Companies/{Company}.csv'):
+            with open(f'{Company}.csv','r',encoding='utf-8') as f:
+                first_line = f.readlines()[1]
+
+                dictionary = ast.literal_eval(first_line)
+                self.printf(dictionary)
+                return dictionary
+        else:
+            self.printf("File not found")
+            return dict()
+    
+    def get_file_data(self, file_name):
+        self.Company_list = list()
+
+        if exists(file_name):
+            with open(file_name, "r") as file:
+                for line in file:
+                    self.Company_list.append(line.split("\n")[0])
+
+            return self.Company_list
+        else:
+            system(f"touch {file_name}")
+            return self.Company_list
+
+    def Max_ID_Checker(self,):
+        if self.idnum > self.ID_MAX:
+            PV_Obj.printf(f"......Credential ID above {ID_MAX} don't exist......")
+            return False
+        return True
+
+    def CompanyEmailPatrn(self, Company, pattern=None):
+
+        Company_Bool = False
         try:
-            patternSuc = patternCatcher(Company)
-        except Exception:
-            patternSuc = {}
-        
-        Emails = []
-        data = collection.find_one({"Company": Company,}, {"Domain": 1, "data_dict": 1})
+            correctness = {"correct": 0, "incorrect": 0}
 
-        for i in data["data_dict"]:
-
-            # i['Verification'] in (False, "pending")
+            data = self.collection.find_one({"Company": Company,}, {"Domain": 1, "data_dict": 1})
+            
             domain = data['Domain']
-            NULL_COUNTER = 0
+            for i in data["data_dict"]:
 
-            if i['Verification'] == "pending":
-                printf("Checking:",i["id"])
-                id = i['id']
-                fname = i['first']
-                lname = i['last']
-
-                fullName = f'{fname} {lname}'.replace(".","").replace(",","").replace("(","").replace(")","")
-                printf(fullName)
-
-                while (idnum <= ID_MAX):
-                    ptrn = None
-                    EMail = None
-                    counter = 0
-                    try:
-                        
-                        printf(f"Email[{id}] ==", fullName,'\n-------------------------')
-                        ptrn, EMail, counter = PatternCheck(fullName, domain, idnum, pattern_list=pattern)
-                        break
-
-                    except Exception as E:
-                        if "Refresh problem"  in E:
-                            NULL_COUNTER += 1
-                            if NULL_COUNTER >= 4: 
-
-                                return False
-
-                        else:
-                            NULL_COUNTER = 0
-                        printf("Exception: ",E)
-                        printf(f"ID Value is :::: {idnum}")
-
-
-                if counter > DAILY_LIMIT:
-                    printf(f"******** Daily Limit Reached for ID: {idnum} ********")
-                    idnum += 1
-
-                if EMail:
-                    correctness["correct"] += 1
-                    collection.update_one({
-                        "Company": Company,
-                        "data_dict" :{"$elemMatch" : {"id": id}}
-                        }, 
-                        {'$set': 
-                         {
-                            "data_dict.$.email": EMail,
-                            "data_dict.$.Verification": True,
-                            "data_dict.$.Checked24": datetime.now()
-                          
-                          }})
-                    if not Company_Bool: Company_Bool = True
-                    
-                else:
-                    correctness["incorrect"] += 1
-
-                    collection.update_one(
-                        {"Company": Company, "data_dict" :{"$elemMatch" : {"id": id}}}, 
-                        {'$set': {
-                            "data_dict.$.Verification": "pending"
-                            }}
-                        )
-                    
-                    if correctness["correct"] < correctness["incorrect"] and correctness["correct"] != 0 and correctness["incorrect"] != 0: 
-                        return False
-
-
-                printf(f'Email Found[{id}] ~ {EMail}\n--------------------------')
                 
-                # This Section is used to update the pattern.txt 
-                # For pattern through which latest Email has been founded
-                try:
-                    update_pattern_list(ptrn)
-                    printf(f'{ptrn} Listed first on patterns.txt')
-                except Exception:
-                    pass
+                NULL_COUNTER = 0
+
+                if i['Verification'] == "pending":
+                    self.printf("Checking:",i["id"])
+                    id = i['id']
+                    fname = i['first']
+                    lname = i['last']
+
+                    fullName = f'{fname} {lname}'.replace(".","").replace(",","").replace("(","").replace(")","")
+                    self.printf(fullName)
+
+                    while (self.idnum <= self.ID_MAX):
+                        ptrn = None
+                        EMail = None
+                        counter = 0
+                        try:
+
+                            self.printf(f"Email[{id}] ==", fullName,'\n-------------------------')
+                            ptrn, EMail, counter = PatternCheck(fullName, domain, self.idnum, pattern_list=pattern)
+                            break
+
+                        except Exception as E:
+                            if "Refresh problem"  in E:
+                                NULL_COUNTER += 1
+                                if NULL_COUNTER >= 4: 
+
+                                    return False
+
+                            else:
+                                NULL_COUNTER = 0
+                            self.printf("Exception: ",E)
+                            self.printf(f"ID Value is :::: {self.idnum}")
 
 
-                if ptrn in patternSuc.keys():
-                    patternSuc[ptrn] = int(patternSuc[ptrn])+1
-                else:
-                    patternSuc[ptrn] = 1
+                    if counter > self.DAILY_LIMIT:
+                        self.printf(f"******** Daily Limit Reached for ID: {self.idnum} ********")
+                        self.idnum += 1
 
-                Emails.append(EMail)
+                    if EMail:
+                        correctness["correct"] += 1
+                        self.collection.update_one({
+                            "Company": Company,
+                            "data_dict" :{"$elemMatch" : {"id": id}}
+                            }, 
+                            {'$set': 
+                             {
+                                "data_dict.$.email": EMail,
+                                "data_dict.$.Verification": True,
+                                "data_dict.$.Checked24": datetime.now()
 
-        item_with_highest_value = max(patternSuc, key=lambda x: patternSuc[x])
-        printf("Item with highest value:", item_with_highest_value)
+                              }})
+                        if not Company_Bool: Company_Bool = True
 
-    except Exception as e:
-        printf(e)
+                    else:
+                        correctness["incorrect"] += 1
 
-    
+                        self.collection.update_one(
+                            {"Company": Company, "data_dict" :{"$elemMatch" : {"id": id}}}, 
+                            {'$set': {
+                                "data_dict.$.Verification": "pending"
+                                }}
+                            )
 
-    try:
-        with open(f"Company/{Company}.csv", 'a', encoding='utf-8') as f:
-            f.write(f'{Company}:\n{patternSuc}\n')
-            f.write(', '.join(Emails))
-            f.close()
-        collection.update_one(
-            {"Company": Company},
-            {
-                '$set': {
-                    'pattern': item_with_highest_value
-                }
-            }
-        )
-    except Exception:
-        pass
+                        if correctness["correct"] < correctness["incorrect"] and correctness["correct"] != 0 and correctness["incorrect"] != 0: 
+                            return False
 
-    return Company_Bool
+
+                    self.printf(f'Email Found[{id}] ~ {EMail}\n--------------------------')
+
+                    # This Section is used to update the pattern.txt 
+                    # For pattern through which latest Email has been founded
+                    try:
+                        self.update_pattern_list(ptrn)
+                        self.printf(f'{ptrn} Listed first on patterns.txt')
+                    except Exception:
+                        pass
+
+
+        except Exception as e:
+            self.printf(e)
+
+        return Company_Bool
+
 
 if __name__ == "__main__":
 
     idnum = 20
     ID_MAX = 40
 
-
+    PV_Obj = PendingVerification(start_id=idnum, last_id=ID_MAX)
     # Running for Pending Email Verification
-    companies = collection.find({"data_dict.Verification": "pending"}, {"Company":1})
+    companies = PV_Obj.collection.find({"data_dict.Verification": "pending"}, {"Company":1})
     
     for company in companies:
-       
-        if idnum > ID_MAX:
-            exit("......Credential ID above 30 don't exist......")
 
-        printf("################################################################################")
+        PV_Obj.printf("################################################################################")
 
-        printf("Company Name :::: ", company["Company"])
+        PV_Obj.printf("Company Name :::: ", company["Company"])
         try:
-            ptrn_found = CompanyEmailPatrn(Company=company["Company"], start_id=idnum)
+            ptrn_found = PV_Obj.CompanyEmailPatrn(Company=company["Company"], start_id=idnum)
             
             
         except Exception as E:
-            printf(E)
-            break
+            PV_Obj.printf(E)
 
         except KeyboardInterrupt as KE:
-            printf("Generated KeyBoard Interrupt ::::::")
+            PV_Obj.printf("Generated KeyBoard Interrupt ::::::")
             break
-
-    printf("Pending Phase Completed.......")
     
 
 
