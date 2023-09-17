@@ -53,8 +53,11 @@ def verifying2(recipient_email, id_num):
         send_message = service.users().messages().send(userId='me', body={'raw': raw_msg}).execute()
 
     except HttpError as error:
-        send_message = None
-        printf("---", error)
+        
+        if "Invalid To header" in str(error):
+            printf("HTTP 400 --- ", to)
+        else:
+            printf("---", error)
         return False
     
     except Exception as E:

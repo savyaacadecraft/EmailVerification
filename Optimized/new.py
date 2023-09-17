@@ -30,6 +30,18 @@ ID_MAX = None
 DAILY_LIMIT = 1000
 LIMIT_CHECKER = 0
 
+def update_pattern_file(ptrn:str) -> None:
+
+    pattern_list = list()
+
+    with open("../patterns.txt", "r") as file:
+        for line in file:
+            pattern_list.append(line.split("\n")[0])
+
+    pattern_list.pop(pattern_list.index(ptrn))
+    pattern_list.append(ptrn)
+    print("\n".join(pattern_list), file=open("../patterns.txt", "w"))
+
 def printf(*args):
     print(*args, file=open("New_logic_Logs.txt", "a"))
 
@@ -72,22 +84,25 @@ def initial_pattern_check(firm: str, pattern_dict: dict = None) -> dict:
         pattern_map = dict.fromkeys(get_file_data("../patterns.txt"), 0)
 
     init = 0
-    print("Domain: ", data["Domain"])
+    printf("Domain: ", data["Domain"])
     for i in data["data_dict"]:
         if init == 10:
             break
 
-        name = i["first"] +" "+ i["last"]
-        pattern, email, lmt = PatternCheck(full_name=name, domain=data["Domain"], _idnum=START_ID, pattern_list=ptrn_list)
+        if i["Verification"] != True:
 
-        
-        if lmt >= DAILY_LIMIT:
-            START_ID += 1
-        
-        if pattern:
-            pattern_map[pattern] += 1
-            init += 1
-            data_insertion(firm, int(i["id"]), email)
+            name = i["first"] +" "+ i["last"]
+            pattern, email, lmt = PatternCheck(full_name=name, domain=data["Domain"], _idnum=START_ID, pattern_list=ptrn_list)
+
+
+            if lmt >= DAILY_LIMIT:
+                START_ID += 1
+
+            if pattern:
+                pattern_map[pattern] += 1
+                init += 1
+                data_insertion(firm, int(i["id"]), email)
+                update_pattern_file(pattern)
 
     return pattern_map
 
@@ -138,7 +153,6 @@ def create_email_from_pattern(first_name, last_name, domain, pattern) -> str:
 
     return email+"@"+domain
     
-
 def has_only_one_max_value(d):
 
     if not d:
@@ -166,7 +180,7 @@ def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
     
 
     count = get_count(firm)
-    print(len(pattern_dict.keys()), ":|:|:|:", count)
+    printf(len(pattern_dict.keys()), ":|:|:|:", count)
 
     if count or (len(pattern_dict.keys()) > 2):
 
@@ -174,17 +188,19 @@ def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
 
         data = collection.find_one({"Company": firm}, {"_id": 0, "Domain": 1, "data_dict": 1})
         for i in data["data_dict"]:
-            if LIMIT_CHECKER >= DAILY_LIMIT: 
-                START_ID += 1
-                LIMIT_CHECKER = 0
+            if i["Verification"] != True:
 
-            email = create_email_from_pattern(i["first"], i["last"], data["Domain"], pattern)
-            LIMIT_CHECKER += 1
-            try:
-                if verifying2(recipient_email=email, id_num=START_ID):
-                    data_insertion(firm, int(i["id"]), email)
-            except Exception as E:
-                print("Exception ::::: ", E)
+                if LIMIT_CHECKER >= DAILY_LIMIT: 
+                    START_ID += 1
+                    LIMIT_CHECKER = 0
+
+                email = create_email_from_pattern(i["first"], i["last"], data["Domain"], pattern)
+                LIMIT_CHECKER += 1
+                try:
+                    if verifying2(recipient_email=email, id_num=START_ID):
+                        data_insertion(firm, int(i["id"]), email)
+                except Exception as E:
+                    printf("Exception ::::: ", E)
         
         if get_count(firm):
             del pattern_dict[pattern]
@@ -200,14 +216,15 @@ def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
 
 
 if __name__ == "__main__":
-    START_ID = 23
-    ID_MAX = 30
-    print("start....")
+    START_ID = 30
+    ID_MAX = 50
+    printf("start....")
 
 
     companies = collection.find({"data_dict.Verification": {"$in": ["pending", False]}}, {"Company":1, "_id": 0})
 
     for company in companies:
+        if company["Company"] in ["Forbes"]: continue
 
         result = email_finder(company["Company"])
-        print(f"{company['Company']} ::::: {result}")
+        printf(f"{company['Company']} ::::: {result}")
