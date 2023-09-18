@@ -227,7 +227,7 @@ def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
 
 if __name__ == "__main__":
 
-    data = load(open("Data.json", "r"))
+    data = load(open("../Data.json", "r"))
     printf("start....")
 
 
