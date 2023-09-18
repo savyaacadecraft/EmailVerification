@@ -213,10 +213,28 @@ def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
 
 if __name__ == "__main__":
     firm_name = get_file_data("firm_list.csv")
-    START_ID = 15
-    ID_MAX = 30
-
+    data = load(open("Data.json", "r"))
     printf("start....")
+
+    if argv[1].lower() == "pending":
+        VERIFICATION = "pending"
+        START_ID = data['pending']["start"]
+        ID_MAX = data['pending']["max"]
+    
+    elif argv[1].lower() == "false":
+        VERIFICATION = False
+        START_ID = data['false']["start"]
+        ID_MAX = data['false']["max"]
+    
+    else:
+        VERIFICATION = "Not Found"
+        START_ID = data["create"]["start"]
+        ID_MAX = data["create"]["max"]
+
+    
+    print(VERIFICATION, START_ID, ID_MAX)
+    100/0
+    
     VERIFICATION = argv[1] if argv[1] not in ["True", "False"] else True if argv[1] == "True" else False
 
     companies = collection.find({"data_dict.Verification": {"$eq": VERIFICATION}}, {"Company":1, "_id": 0})

@@ -1,0 +1,14 @@
+{
+    "pending":{
+        "start": 15,
+        "max": 30
+    },
+    "false": {
+        "start": 31,
+        "max": 45
+    },
+    "create": {
+        "start": 46,
+        "max": 61
+    }
+}
