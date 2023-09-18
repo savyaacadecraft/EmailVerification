@@ -233,8 +233,8 @@ if __name__ == "__main__":
                 print(company["Company"], "\n", file=open("firm_list.csv", "a"))
 
             
-            except KeyboardInterrupt as KE:
-                print(company["Company"], "\n", file=open("firm_list.csv", "a"))
+            #except KeyboardInterrupt as KE:
+            #    print(company["Company"], "\n", file=open("firm_list.csv", "a"))
     
     except Exception as E:
         pass

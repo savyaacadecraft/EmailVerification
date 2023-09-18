@@ -7,6 +7,6 @@ CONSTANTS.json
 Start.sh
 Stop.sh
 
-False_Verification
-Email_Creator
-Pending_Verification
+False_Verification/
+Email_Creator/
+Pending_Verification/
