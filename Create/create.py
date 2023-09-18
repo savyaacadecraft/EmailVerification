@@ -6,7 +6,7 @@ from urllib.parse import quote_plus
 from sys import exit, argv
 from datetime import datetime, timedelta
 from time import sleep
-
+from threading import Thread
 
 username = "manojtomar326"
 password = "Tomar@@##123"
@@ -120,7 +120,8 @@ def initial_pattern_check(firm: str, pattern_dict: dict = None) -> dict:
             if pattern:
                 pattern_map[pattern] += 1
                 init += 1
-                data_insertion(firm, int(i["id"]), email)
+                Thread(target=data_insertion, args=(firm, int(i["id"]), email)).start()
+                # data_insertion(firm, int(i["id"]), email)
                 update_pattern_file(pattern)
 
     return pattern_map
@@ -207,7 +208,8 @@ def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
                 LIMIT_CHECKER += 1
                 try:
                     if verifying2(recipient_email=email, id_num=START_ID):
-                        data_insertion(firm, int(i["id"]), email)
+                        Thread(target=data_insertion, args=(firm, int(i["id"]), email)).start()
+                        # data_insertion(firm, int(i["id"]), email)
                 except Exception as E:
                     printf("Exception ::::: ", E)
         
