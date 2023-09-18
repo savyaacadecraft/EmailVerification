@@ -212,7 +212,7 @@ def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
 
 
 if __name__ == "__main__":
-    firm_name = get_file_data("firm_list.csv")
+
     data = load(open("Data.json", "r"))
     printf("start....")
 
@@ -231,28 +231,19 @@ if __name__ == "__main__":
         START_ID = data["create"]["start"]
         ID_MAX = data["create"]["max"]
 
-    
-    print(VERIFICATION, START_ID, ID_MAX)
-    100/0
-    
-    VERIFICATION = argv[1] if argv[1] not in ["True", "False"] else True if argv[1] == "True" else False
 
     companies = collection.find({"data_dict.Verification": {"$eq": VERIFICATION}}, {"Company":1, "_id": 0})
     try:
         for company in companies:
-            if company["Company"] in firm_name: 
-                continue
-            
+                       
             try:
-                if email_finder(company["Company"]):
-                    firm_name.append(company["Company"])
-                    print(company["Company"], "\n", file=open("firm_list.csv", "a"))
+                email_finder(company["Company"])
             except Exception as E:
-                print(company["Company"], "\n", file=open("firm_list.csv", "a"))
+                printf(E)
 
             
-            #except KeyboardInterrupt as KE:
-            #    print(company["Company"], "\n", file=open("firm_list.csv", "a"))
+            # except KeyboardInterrupt as KE:
+            #     print(company["Company"], "\n", file=open("firm_list.csv", "a"))
     
     except Exception as E:
         pass
