@@ -48,8 +48,14 @@ def update_pattern_file(ptrn:str) -> None:
 
 def printf(*args):
     global VERIFICATION
+    
+    if VERIFICATION == 'pending':
+        print(*args, file=open(f"{VERIFICATION}/New_logic_{VERIFICATION}_Logs.txt", "a"))
+    elif VERIFICATION == False:
+        print(*args, file=open(f"{VERIFICATION}/New_logic_{VERIFICATION}_Logs.txt", "a"))
+    elif VERIFICATION == "Not Found":
+        print(*args, file=open(f"{VERIFICATION}/New_logic_{VERIFICATION}_Logs.txt", "a"))
 
-    print(*args, file=open(f"New_logic_{VERIFICATION}_Logs.txt", "a"))
 
 def get_file_data(file_name:str) -> list:
     data_list = list()
