@@ -1,9 +1,11 @@
 from validate_email_own import verifying2, PatternCheck
 
+from json import load
 from pymongo import MongoClient
 from urllib.parse import quote_plus
 from sys import exit
 from datetime import datetime, timedelta
+from time import sleep
 
 
 username = "manojtomar326"
@@ -107,38 +109,28 @@ def initial_pattern_check(firm: str, pattern_dict: dict = None) -> dict:
     return pattern_map
 
 def get_count(firm:str) -> int:
-    pipeline = [
-    {"$match": 
-        {  
-            "Company": firm
-        }
-    },
-    {
-        "$project": {
-            "matchingCount": {
-                "$size": {
-                    "$ifNull": [
-                        {
-                            "$filter": {
-                                "input": {"$ifNull": ["$data_dict", []]},
-                                "as": "item",
-                                "cond": {
-                                    "$in": ["$$item.Verification", [False, "pending"]]
-                                }
-                            }
-                        },
-                        []
-                    ]
+    result = list(collection.aggregate([
+        {
+            '$match': {
+                'Company': firm
+            }
+        }, {
+            '$unwind': {
+                'path': '$data_dict'
+            }
+        }, {
+            '$match': {
+                'data_dict.Verification': {
+                    '$ne': True
                 }
             }
+        }, {
+            '$count': 'count'
         }
-    }
-        ]
-    
-    data = list(collection.aggregate(pipeline=pipeline))
+    ]))
 
-    if data:
-        return data[0]["matchingCount"]
+
+    return result[0]["count"]
         
 def create_email_from_pattern(first_name, last_name, domain, pattern) -> str:
     
@@ -149,7 +141,7 @@ def create_email_from_pattern(first_name, last_name, domain, pattern) -> str:
 
     email = pattern.replace('firstname', first_name).replace('lastname', last_name).replace('firstinitial', first_name[0]).replace('lastinitial', last_name[0]).lower()
 
-    email = email.replace("(", "").replace(")", "").replace("..", ".")
+    email = email.replace("(", "").replace(")", "").replace("..", ".").replace(".@", "@").replace(",", "").replace("%", "").replace("$", "").replace("#", "").replace("/", "").replace("<", "").replace(">", "").replace("?", "")
 
     return email+"@"+domain
     
@@ -216,15 +208,18 @@ def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
 
 
 if __name__ == "__main__":
-    START_ID = 30
-    ID_MAX = 50
+    firm_name = get_file_data("firm_list.csv")
+    START_ID = 15
+    ID_MAX = 45
     printf("start....")
 
 
-    companies = collection.find({"data_dict.Verification": {"$in": ["pending", False]}}, {"Company":1, "_id": 0})
-
+    companies = collection.find({"data_dict.Verification": {"$eq": "pending"}}, {"Company":1, "_id": 0})
+    
     for company in companies:
-        if company["Company"] in ["Forbes"]: continue
+        if company["Company"] in firm_name: 
+            continue
 
-        result = email_finder(company["Company"])
-        printf(f"{company['Company']} ::::: {result}")
+        if email_finder(company["Company"]):
+            firm_name.append(company["Company"])
+            print(company["Company"], "\n", file=open("firm_list.csv", "a"))

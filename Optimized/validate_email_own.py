@@ -170,7 +170,7 @@ def PatternCheck(full_name, domain,_idnum, pattern_list=None):
         for i in pattern_list:
             try:
                 ptrn = i.replace('firstname', name).replace('lastname', last).replace('firstinitial', name[0]).replace('lastinitial', last[0]).lower()
-                ptrn = ptrn.replace("(", "").replace(")", "").replace("..", ".")
+                ptrn = ptrn.replace("(", "").replace(")", "").replace("..", ".").replace(".@", "@").replace(",", "").replace("%", "").replace("$", "").replace("#", "").replace("/", "").replace("<", "").replace(">", "").replace("?", "")
 
                 email = f'{ptrn}@{domain}'
 
