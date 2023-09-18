@@ -3,7 +3,7 @@ from validate_email_own import verifying2, PatternCheck
 from json import load
 from pymongo import MongoClient
 from urllib.parse import quote_plus
-from sys import exit
+from sys import exit, argv
 from datetime import datetime, timedelta
 from time import sleep
 
@@ -29,6 +29,8 @@ collection = db['my_collection']
 START_ID = None
 ID_MAX = None
 
+VERIFICATION = None
+
 DAILY_LIMIT = 1000
 LIMIT_CHECKER = 0
 
@@ -45,7 +47,9 @@ def update_pattern_file(ptrn:str) -> None:
     print("\n".join(pattern_list), file=open("../patterns.txt", "w"))
 
 def printf(*args):
-    print(*args, file=open("New_logic_Logs.txt", "a"))
+    global VERIFICATION
+
+    print(*args, file=open(f"New_logic_{VERIFICATION}_Logs.txt", "a"))
 
 def get_file_data(file_name:str) -> list:
     data_list = list()
@@ -69,7 +73,7 @@ def data_insertion(firm: str, emp_id: int, email: str) -> None:
                                             }})
 
 def initial_pattern_check(firm: str, pattern_dict: dict = None) -> dict:
-    global START_ID, ID_MAX, DAILY_LIMIT
+    global START_ID, ID_MAX, DAILY_LIMIT, VERIFICATION
 
     
     data = collection.find_one({"Company": firm}, {"Domain": 1, "data_dict": 1})
@@ -91,7 +95,7 @@ def initial_pattern_check(firm: str, pattern_dict: dict = None) -> dict:
         if init == 10:
             break
 
-        if i["Verification"] != True:
+        if i["Verification"] == VERIFICATION:
 
             name = i["first"] +" "+ i["last"]
             pattern, email, lmt = PatternCheck(full_name=name, domain=data["Domain"], _idnum=START_ID, pattern_list=ptrn_list)
@@ -158,7 +162,7 @@ def has_only_one_max_value(d):
     return count_max_value == 1
 
 def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
-    global START_ID, ID_MAX, DAILY_LIMIT, LIMIT_CHECKER
+    global START_ID, ID_MAX, DAILY_LIMIT, LIMIT_CHECKER, VERIFICATION
 
     if turn:
         if has_only_one_max_value(_pattern):
@@ -180,7 +184,7 @@ def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
 
         data = collection.find_one({"Company": firm}, {"_id": 0, "Domain": 1, "data_dict": 1})
         for i in data["data_dict"]:
-            if i["Verification"] != True:
+            if i["Verification"] == VERIFICATION:
 
                 if LIMIT_CHECKER >= DAILY_LIMIT: 
                     START_ID += 1
@@ -210,16 +214,27 @@ def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
 if __name__ == "__main__":
     firm_name = get_file_data("firm_list.csv")
     START_ID = 15
-    ID_MAX = 45
+    ID_MAX = 30
+
     printf("start....")
+    VERIFICATION = argv[1] if argv[1] not in ["True", "False"] else True if argv[1] == "True" else False
 
+    companies = collection.find({"data_dict.Verification": {"$eq": VERIFICATION}}, {"Company":1, "_id": 0})
+    try:
+        for company in companies:
+            if company["Company"] in firm_name: 
+                continue
+            
+            try:
+                if email_finder(company["Company"]):
+                    firm_name.append(company["Company"])
+                    print(company["Company"], "\n", file=open("firm_list.csv", "a"))
+            except Exception as E:
+                print(company["Company"], "\n", file=open("firm_list.csv", "a"))
 
-    companies = collection.find({"data_dict.Verification": {"$eq": "pending"}}, {"Company":1, "_id": 0})
+            
+            except KeyboardInterrupt as KE:
+                print(company["Company"], "\n", file=open("firm_list.csv", "a"))
     
-    for company in companies:
-        if company["Company"] in firm_name: 
-            continue
-
-        if email_finder(company["Company"]):
-            firm_name.append(company["Company"])
-            print(company["Company"], "\n", file=open("firm_list.csv", "a"))
+    except Exception as E:
+        pass
