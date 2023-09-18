@@ -29,8 +29,6 @@ collection = db['my_collection']
 START_ID = None
 ID_MAX = None
 
-VERIFICATION = None
-
 DAILY_LIMIT = 1000
 LIMIT_CHECKER = 0
 
@@ -47,15 +45,7 @@ def update_pattern_file(ptrn:str) -> None:
     print("\n".join(pattern_list), file=open("../patterns.txt", "w"))
 
 def printf(*args):
-    global VERIFICATION
-    
-    if VERIFICATION == 'pending':
-        print(*args, file=open(f"{VERIFICATION}/New_logic_{VERIFICATION}_Logs.txt", "a"))
-    elif VERIFICATION == False:
-        print(*args, file=open(f"{VERIFICATION}/New_logic_{VERIFICATION}_Logs.txt", "a"))
-    elif VERIFICATION == "Not Found":
-        print(*args, file=open(f"{VERIFICATION}/New_logic_{VERIFICATION}_Logs.txt", "a"))
-
+    print(*args, file=open(f"New_logic_pending_Logs.txt", "a"))
 
 def get_file_data(file_name:str) -> list:
     data_list = list()
@@ -79,9 +69,25 @@ def data_insertion(firm: str, emp_id: int, email: str) -> None:
                                             }})
 
 def initial_pattern_check(firm: str, pattern_dict: dict = None) -> dict:
-    global START_ID, ID_MAX, DAILY_LIMIT, VERIFICATION
+    global START_ID, ID_MAX, DAILY_LIMIT
 
-    
+    # data = collection.aggregate(
+    #     [
+    #     {
+    #         '$match': {
+    #             'Company': firm
+    #         }
+    #     }, {
+    #         '$unwind': {
+    #             'path': '$data_dict'
+    #         }
+    #     }, {
+    #         '$match': {
+    #             'data_dict.Verification': "pending"
+    #         }
+    #     }
+    #     ]
+    # )
     data = collection.find_one({"Company": firm}, {"Domain": 1, "data_dict": 1})
     
     ptrn_list = None
@@ -96,12 +102,11 @@ def initial_pattern_check(firm: str, pattern_dict: dict = None) -> dict:
         pattern_map = dict.fromkeys(get_file_data("../patterns.txt"), 0)
 
     init = 0
-    printf("Domain: ", data["Domain"])
     for i in data["data_dict"]:
         if init == 10:
             break
 
-        if i["Verification"] == VERIFICATION:
+        if i["Verification"] == "pending":
 
             name = i["first"] +" "+ i["last"]
             pattern, email, lmt = PatternCheck(full_name=name, domain=data["Domain"], _idnum=START_ID, pattern_list=ptrn_list)
@@ -168,7 +173,7 @@ def has_only_one_max_value(d):
     return count_max_value == 1
 
 def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
-    global START_ID, ID_MAX, DAILY_LIMIT, LIMIT_CHECKER, VERIFICATION
+    global START_ID, ID_MAX, DAILY_LIMIT, LIMIT_CHECKER
 
     if turn:
         if has_only_one_max_value(_pattern):
@@ -190,7 +195,7 @@ def email_finder(firm: str, _pattern:dict = None, turn:bool = False):
 
         data = collection.find_one({"Company": firm}, {"_id": 0, "Domain": 1, "data_dict": 1})
         for i in data["data_dict"]:
-            if i["Verification"] == VERIFICATION:
+            if i["Verification"] == "pending":
 
                 if LIMIT_CHECKER >= DAILY_LIMIT: 
                     START_ID += 1
@@ -222,23 +227,13 @@ if __name__ == "__main__":
     data = load(open("Data.json", "r"))
     printf("start....")
 
-    if argv[1].lower() == "pending":
-        VERIFICATION = "pending"
-        START_ID = data['pending']["start"]
-        ID_MAX = data['pending']["max"]
-    
-    elif argv[1].lower() == "false":
-        VERIFICATION = False
-        START_ID = data['false']["start"]
-        ID_MAX = data['false']["max"]
-    
-    else:
-        VERIFICATION = "Not Found"
-        START_ID = data["create"]["start"]
-        ID_MAX = data["create"]["max"]
+
+    START_ID = data['pending']["start"]
+    ID_MAX = data['pending']["max"]
 
 
-    companies = collection.find({"data_dict.Verification": {"$eq": VERIFICATION}}, {"Company":1, "_id": 0})
+
+    companies = collection.find({"data_dict.Verification": {"$eq": "pending"}}, {"Company":1, "_id": 0})
     try:
         for company in companies:
                        
